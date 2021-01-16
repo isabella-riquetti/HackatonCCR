@@ -1,4 +1,4 @@
-﻿@model RegisterMentorModel
+﻿@model RegisterDiscoverModel
 @using System.IO
 
 @{
@@ -15,10 +15,9 @@
     }
 }
 
-@using (Html.BeginForm("RegisterMentor", "Authentication", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-
+@using (Html.BeginForm("RegisterDiscover", "Authentication", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
-    <h2>Cadastrar como mentor</h2>
+    <h2>Cadastrar como Aluno</h2>
     <div class="form-group">
         @Html.LabelFor(m => m.Name)
         @Html.EditorFor(m => m.Name, new { htmlAttributes = new { placeholder = "Digite seu nome completo", @class = "form-control" } })
@@ -38,24 +37,6 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.GraduationId)
-        @Html.DropDownListFor(m => m.GraduationId, (List<SelectListItem>)ViewBag.Graduations, "Selecione seu curso de graduação", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.GraduationId)
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.RemainingMissingHours)
-        @Html.EditorFor(m => m.RemainingMissingHours, new { htmlAttributes = new { placeholder = "Digite o número de horas complementares pendentes", @class = "form-control" } })
-        @Html.ValidationMessageFor(m => m.RemainingMissingHours)
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.WorkingField)
-        @Html.EditorFor(m => m.WorkingField, new { htmlAttributes = new { placeholder = "Informe seu cargo caso esteja trabalhando (opcional)", @class = "form-control" } })
-        @Html.ValidationMessageFor(m => m.WorkingField)
-    </div>
-
-    <div class="form-group">
         @Html.LabelFor(m => m.Password)
         @Html.EditorFor(m => m.Password, new { htmlAttributes = new { placeholder = "Digite sua senha", @class = "form-control" } })
         @Html.ValidationMessageFor(m => m.Password)
@@ -63,9 +44,10 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.ConfirmPassword)
-        @Html.EditorFor(m => m.ConfirmPassword, new { htmlAttributes = new { placeholder = "Repita sua senha", @class = "form-control" } })
+        @Html.EditorFor(m => m.ConfirmPassword, new { htmlAttributes = new { placeholder = "Digite sua senha", @class = "form-control" } })
         @Html.ValidationMessageFor(m => m.Password)
     </div>
+
     <div class="form-group">
         @Html.LabelFor(m => m.Picture)
         <br /><input type="file" name="Picture" id="Picture" accept=".png" />
@@ -84,11 +66,11 @@
         <img src="data:image/png;base64,@base64String" alt="" id="img" /><br />
     </div>
 
+
     @Html.HiddenFor(m => m.Type)
 
     <input class="btn btn-lg btn-primary btn-block" style="margin-top:39px;" type="submit" name="Cadastrar" value="Cadastrar" />
 }
-
 
 @section Scripts {
 
@@ -112,6 +94,7 @@
         });
 
     </script>
+
 }
 
 <style>

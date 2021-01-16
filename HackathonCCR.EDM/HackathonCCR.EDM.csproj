@@ -10,8 +10,8 @@
     <ProjectGuid>{089CBDC5-EA4C-4325-8D1C-8DDE80528E29}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hackathon.EDM</RootNamespace>
-    <AssemblyName>Hackathon.EDM</AssemblyName>
+    <RootNamespace>HackathonCCR.EDM</RootNamespace>
+    <AssemblyName>HackathonCCR.EDM</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -35,6 +35,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
@@ -170,10 +171,13 @@
     <Compile Include="Enums\Helper.cs" />
     <Compile Include="Helper\ExtensionMethods.cs" />
     <Compile Include="Helper\IgnoreToDatatableAttribute.cs" />
+    <Compile Include="Mapping\CategoryMap.cs" />
+    <Compile Include="Mapping\ScheduleMap.cs" />
     <Compile Include="Mapping\UserMap.cs" />
     <Compile Include="Models\Base\IModelBase.cs" />
     <Compile Include="Models\Base\ModelBase.cs" />
     <Compile Include="Models\Base\ObjectTempToDelete.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Schedule.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="OperationResult.cs" />
