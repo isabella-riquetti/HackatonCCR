@@ -20,6 +20,7 @@ namespace HackathonCCR.EDM.Models
         public int? RemainingMissingHours { get; set; }
         public string WorkingField { get; set; }
         public Enums.User.Type Type { get; set; }
+        public byte[] Picture { get; set; }
 
         public virtual Category Graduation { get; set; }
 

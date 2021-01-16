@@ -3,6 +3,7 @@ using HackathonCCR.EDM.UnitOfWork;
 using HackathonCCR.MVC.Helper;
 using HackathonCCR.MVC.Models;
 using System;
+using System.IO;
 
 namespace HackathonCCR.MVC.Services
 {
@@ -28,14 +29,22 @@ namespace HackathonCCR.MVC.Services
 
         public User Register(RegisterDiscoverModel model)
         {
+            byte[] picture;
+            using (var ms = new MemoryStream())
+            {
+                model.Picture.CopyTo(ms);
+                picture = ms.ToArray();
+            }
+
             var user = new User()
             {
                 UserId = Guid.NewGuid(),
                 Email = model.Email,
                 Name = model.Name,
-                Password = Crypt.Encrypt(model.Password),
+                Password = CryptHelper.Encrypt(model.Password),
                 Type = model.Type,
                 PhoneNumber = model.PhoneNumber,
+                Picture = picture
             };
             _unitOfWork.RepositoryBase.Add(user);
             _unitOfWork.Commit();
@@ -45,17 +54,24 @@ namespace HackathonCCR.MVC.Services
 
         public User Register(RegisterMentorModel model)
         {
+            byte[] picture;
+            using (var ms = new MemoryStream())
+            {
+                model.Picture.CopyTo(ms);
+                picture = ms.ToArray();
+            }
             var user = new User()
             {
                 UserId = Guid.NewGuid(),
                 Email = model.Email,
                 Name = model.Name,
-                Password = Crypt.Encrypt(model.Password),
+                Password = CryptHelper.Encrypt(model.Password),
                 Type = model.Type,
                 PhoneNumber = model.PhoneNumber,
                 GraduationId = model.GraduationId,
                 WorkingField = model.WorkingField,
-                RemainingMissingHours = model.RemainingMissingHours
+                RemainingMissingHours = model.RemainingMissingHours,
+                Picture = picture
             };
             _unitOfWork.RepositoryBase.Add(user);
             _unitOfWork.Commit();

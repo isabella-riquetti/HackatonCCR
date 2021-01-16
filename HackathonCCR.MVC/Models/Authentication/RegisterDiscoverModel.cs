@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace HackathonCCR.MVC.Models
@@ -35,6 +36,9 @@ namespace HackathonCCR.MVC.Models
         [Required(ErrorMessage = "O '{0}' é obrigatório")]
         [RegularExpression(@"^(\(?[0]?[1-9][0-9]\)?)(\.|\-|\s)?([9]{1})?[6-9][0-9]{3}(\.|\-|\s)?[0-9]{4}$", ErrorMessage = "O '{0}' deve estar no formato: (XX) X XXXX-XXXX")]
         public string PhoneNumber { get; set; }
+
+        [Display(Name = "Foto")]
+        public IFormFile Picture { get; set; }
 
         public EDM.Enums.User.Type Type = EDM.Enums.User.Type.Discover;
     }

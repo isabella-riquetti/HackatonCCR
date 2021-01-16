@@ -18,7 +18,7 @@ namespace HackathonCCR.MVC.Services
 
         public bool ConfirmLogin(User user, LoginModel model)
         {
-            if (user == null || Crypt.Encrypt(user.Password) != model.Password)
+            if (user == null || CryptHelper.Encrypt(user.Password) != model.Password)
                 return false;
 
             return true;

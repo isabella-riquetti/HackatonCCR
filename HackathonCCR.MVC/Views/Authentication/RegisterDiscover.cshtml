@@ -1,7 +1,21 @@
 ﻿@model RegisterDiscoverModel
+@using System.IO
 
+@{
+    var base64String = "#";
 
-@using (Html.BeginForm())
+    if (Model?.Picture != null && Model?.Picture.Length > 0)
+    {
+        using (var ms = new MemoryStream())
+        {
+            Model.Picture.CopyTo(ms);
+            var fileBytes = ms.ToArray();
+            base64String = Convert.ToBase64String(fileBytes);
+        }
+    }
+}
+
+@using (Html.BeginForm("RegisterDiscover", "Authentication", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     <h2>Cadastrar como Aluno</h2>
     <div class="form-group">
@@ -28,13 +42,67 @@
         @Html.ValidationMessageFor(m => m.Password)
     </div>
 
-    <div class="form-group" style="margin-bottom:39px;">
+    <div class="form-group">
         @Html.LabelFor(m => m.ConfirmPassword)
         @Html.EditorFor(m => m.ConfirmPassword, new { htmlAttributes = new { placeholder = "Digite sua senha", @class = "form-control" } })
         @Html.ValidationMessageFor(m => m.Password)
     </div>
 
+    <div class="form-group">
+        @Html.LabelFor(m => m.Picture)
+        <br /><input type="file" name="Picture" id="Picture" accept=".png" />
+        @Html.ValidationMessageFor(m => m.Picture)
+    </div>
+
+    var display = "none";
+
+    @if (Model?.Picture != null)
+    {
+        display = "block";
+    }
+
+    <div class="form-group" style="display: @display" id="displayImage">
+        @Html.Label("Foto carregada")
+        <img src="data:image/png;base64,@base64String" alt="" id="img" /><br />
+    </div>
+
+
     @Html.HiddenFor(m => m.Type)
 
-    <input class="btn btn-lg btn-primary btn-block" type="submit" name="Cadastrar" value="Cadastrar" />
+    <input class="btn btn-lg btn-primary btn-block" style="margin-top:39px;" type="submit" name="Cadastrar" value="Cadastrar" />
 }
+
+@section Scripts {
+
+    <script>
+        $('#Picture').change(function () {
+            var input = this;
+            var url = $(this).val();
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (input.files && input.files[0] && ext == "png") {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+                $('#displayImage').show();
+            }
+            //else {
+            //    $('#img').attr('src', '/assets/no_preview.png');
+            //}
+        });
+
+    </script>
+
+}
+
+<style>
+    img {
+        display: block;
+        max-width: 200px;
+        max-height: 200px;
+        width: auto;
+        height: auto;
+    }
+</style>

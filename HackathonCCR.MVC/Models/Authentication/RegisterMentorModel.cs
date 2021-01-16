@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace HackathonCCR.MVC.Models
 {
     public class RegisterMentorModel : RegisterDiscoverModel

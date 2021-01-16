@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HackathonCCR.MVC.Helper
 {
-    public class Crypt
+    public class CryptHelper
     {
         public static string Encrypt(string data)
         {
