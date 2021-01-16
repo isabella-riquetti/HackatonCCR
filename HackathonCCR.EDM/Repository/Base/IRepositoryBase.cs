@@ -14,7 +14,7 @@ namespace HackathonCCR.EDM.Repository.Base
         /// <summary>
         /// Retorna a instância do DbContext usada pelo RepositoryBase no momento.
         /// </summary>
-        IBaseContext GetContext();
+        IHackathonCCRContext GetContext();
 
         /// <summary>
         /// Adiciona item no banco utilizando o contexto do entity framework. Necessário utilizar o método Commit para confirmar a transação.

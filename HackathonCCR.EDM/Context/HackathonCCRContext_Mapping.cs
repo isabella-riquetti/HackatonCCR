@@ -3,11 +3,11 @@ using System.Data.Entity;
 
 namespace HackathonCCR.EDM.Context
 {
-    public partial class BaseContext
+    public partial class HackathonCCRContext
     {
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer<BaseContext>(null);
+            Database.SetInitializer<HackathonCCRContext>(null);
             modelBuilder.Configurations.Add(new UserMap());
         }
     }

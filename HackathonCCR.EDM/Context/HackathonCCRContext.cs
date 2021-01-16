@@ -1,30 +1,27 @@
-﻿using HackathonCCR.EDM.Models;
-using HackathonCCR.EDM.Programmability.Functions;
-using HackathonCCR.EDM.Programmability.Stored_Procedures;
-using Microsoft.Extensions.Configuration;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Data.Common;
 using System.Data.Entity;
 using System.IO;
+using HackathonCCR.EDM.Programmability.Functions;
+using HackathonCCR.EDM.Programmability.Stored_Procedures;
+using Microsoft.Extensions.Configuration;
 
 namespace HackathonCCR.EDM.Context
 {
-    public partial class BaseContext : DbContext, IBaseContext
+    public partial class HackathonCCRContext : DbContext, IHackathonCCRContext
     {
         public Guid UserId;
-        public const string ContextName = "BaseContext";
+        public const string ContextName = "HackathonCCRContext";
 
-        DbSet<User> IBaseContext.User { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public BaseContext(DbConnection connection) : base(connection, true)
+        public HackathonCCRContext(DbConnection connection) : base(connection, true)
         {
             StoredProcedures = new StoredProcedures(this);
             ScalarValuedFunctions = new ScalarValuedFunctions(this);
             TableValuedFunctions = new TableValuedFunctions(this);
         }
 
-        public BaseContext() : base(GetConnectionString(ContextName))
+        public HackathonCCRContext() : base(GetConnectionString(ContextName))
         {
             StoredProcedures = new StoredProcedures(this);
             ScalarValuedFunctions = new ScalarValuedFunctions(this);
@@ -34,8 +31,10 @@ namespace HackathonCCR.EDM.Context
         public static string GetConnectionString(string connectionString)
         {
             var defaultConnection = ConfigurationManager.ConnectionStrings[connectionString]?.ConnectionString;
-            var coreConnection = GetCoreConnectionString();
-            var connection = defaultConnection ?? coreConnection ?? connectionString;
+            var azureFunctionsConnection = Environment.GetEnvironmentVariable(connectionString);
+            var apoloConnection = GetCoreConnectionString();
+
+            var connection = defaultConnection ?? azureFunctionsConnection ?? apoloConnection ?? connectionString;
 
             return connection;
         }
@@ -48,17 +47,13 @@ namespace HackathonCCR.EDM.Context
             {
                 var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder().AddJsonFile(appSettingsPath);
                 var configuration = builder.Build();
-                return configuration.GetConnectionString("Sys10Context");
+                return configuration.GetConnectionString("HackathonCCRContext");
             }
 
             return "";
         }
-
-        public int SaveChanges()
-        {
-            return base.SaveChanges();
-        }
     }
+
 }
 
 
