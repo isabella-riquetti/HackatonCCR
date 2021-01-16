@@ -26,7 +26,7 @@ namespace HackathonCCR.MVC.Services
             return user;
         }
 
-        public User Register(RegisterModel model)
+        public User Register(RegisterDiscoverModel model)
         {
             var user = new User()
             {
@@ -34,9 +34,30 @@ namespace HackathonCCR.MVC.Services
                 Email = model.Email,
                 Name = model.Name,
                 Password = Crypt.Encrypt(model.Password),
-                Type = model.Type
+                Type = model.Type,
+                PhoneNumber = model.PhoneNumber,
             };
-            _unitOfWork.RepositoryBase.Add<User>(user);
+            _unitOfWork.RepositoryBase.Add(user);
+            _unitOfWork.Commit();
+
+            return user;
+        }
+
+        public User Register(RegisterMentorModel model)
+        {
+            var user = new User()
+            {
+                UserId = Guid.NewGuid(),
+                Email = model.Email,
+                Name = model.Name,
+                Password = Crypt.Encrypt(model.Password),
+                Type = model.Type,
+                PhoneNumber = model.PhoneNumber,
+                GraduationId = model.GraduationId,
+                WorkingField = model.WorkingField,
+                RemainingMissingHours = model.RemainingMissingHours
+            };
+            _unitOfWork.RepositoryBase.Add(user);
             _unitOfWork.Commit();
 
             return user;

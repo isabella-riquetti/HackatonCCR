@@ -9,6 +9,8 @@ namespace HackathonCCR.EDM.Context
         {
             Database.SetInitializer<HackathonCCRContext>(null);
             modelBuilder.Configurations.Add(new UserMap());
+            modelBuilder.Configurations.Add(new CategoryMap());
+            modelBuilder.Configurations.Add(new ScheduleMap());
         }
     }
 }

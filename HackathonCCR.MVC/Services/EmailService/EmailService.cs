@@ -9,7 +9,7 @@ namespace HackathonCCR.MVC.Services
 {
     public class EmailService : IEmailService
     {
-        public Guid SendAppointment(User mentor, User mentored, DateTime schedule)
+        public Guid SendAppointment(User mentor, User discover, DateTime schedule)
         {
             var inviteId = Guid.NewGuid();
             var fromEmail = ConfigurationManager.AppSetting["Email:Email"];
@@ -18,11 +18,11 @@ namespace HackathonCCR.MVC.Services
             var mail = new MailMessage();
             mail.From = new MailAddress(fromEmail, "Degrau certo");
             var mentorEmail = new MailAddress(mentor.Email, mentor.Name);
-            var mentoredEmail = new MailAddress(mentored.Email, mentored.Name);
+            var discoverEmail = new MailAddress(discover.Email, discover.Name);
             mail.To.Add(mentorEmail);
-            mail.To.Add(mentoredEmail);
+            mail.To.Add(discoverEmail);
             mail.Subject = $"Degrau Certo: Mentoria agendada";
-            mail.Body = $"Uma mentoria entre o mentor {mentor.Name} e o mentorada {mentored.Name} foi agendada. Favor informar a inteção de comparecimento e utilizar o google meet para se reunirem.";
+            mail.Body = $"Uma mentoria entre o mentor {mentor.Name} e o mentorada {discover.Name} foi agendada. Favor informar a inteção de comparecimento e utilizar o google meet para se reunirem.";
 
             StringBuilder str = new StringBuilder();
             str.AppendLine("BEGIN:VCALENDAR");
@@ -66,7 +66,7 @@ namespace HackathonCCR.MVC.Services
             return inviteId;
         }
 
-        public void Cancel(User mentor, User mentored, Guid inviteId)
+        public void Cancel(User mentor, User discover, Guid inviteId)
         {
             var fromEmail = ConfigurationManager.AppSetting["Email:Email"];
             var emailPassword = ConfigurationManager.AppSetting["Email:Password"];
@@ -75,12 +75,12 @@ namespace HackathonCCR.MVC.Services
             mail.From = new MailAddress(fromEmail, "Degrau certo");
 
             var mentorEmail = new MailAddress(mentor.Email, mentor.Name);
-            var mentoredEmail = new MailAddress(mentored.Email, mentored.Name);
+            var discoverEmail = new MailAddress(discover.Email, discover.Name);
             mail.To.Add(mentorEmail);
-            mail.To.Add(mentoredEmail);
+            mail.To.Add(discoverEmail);
 
             mail.Subject = $"Degrau Certo: Mentoria cancelada";
-            mail.Body = $"Um dos participantes precisou cancelar a mentoria entre o mentor {mentor.Name} e o mentorada {mentored.Name}.";
+            mail.Body = $"Um dos participantes precisou cancelar a mentoria entre o mentor {mentor.Name} e o mentorada {discover.Name}.";
 
             StringBuilder str = new StringBuilder();
             str.AppendLine("BEGIN:VCALENDAR");
@@ -113,12 +113,6 @@ namespace HackathonCCR.MVC.Services
             smtpclient.EnableSsl = true;
             smtpclient.Credentials = new System.Net.NetworkCredential(fromEmail, emailPassword);
             smtpclient.Send(mail);
-        }
-
-        public enum MailType
-        {
-            Mentor,
-            Mentored
         }
     }
 }

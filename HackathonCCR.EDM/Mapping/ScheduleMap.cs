@@ -11,7 +11,7 @@ namespace HackathonCCR.EDM.Models.Mapping
             HasKey(t => t.ScheduleId);
             Property(t => t.ScheduleId).HasColumnName("ScheduleId");
             Property(t => t.MentorId).HasColumnName("MentorId").IsRequired();
-            Property(t => t.MentoredId).HasColumnName("MentoredId");
+            Property(t => t.DiscoverId).HasColumnName("DiscoverId");
             Property(t => t.ScheduleAt).HasColumnName("Time").IsRequired();
             Property(t => t.CategoryId).HasColumnName("CategoryId").IsRequired();
             Property(t => t.AppointmentId).HasColumnName("AppointmentId");
@@ -22,14 +22,14 @@ namespace HackathonCCR.EDM.Models.Mapping
                             .HasForeignKey(d => d.MentorId)
                             .WillCascadeOnDelete(false);
 
+            HasOptional(t => t.Discover)
+                            .WithMany(t => t.Schedules)
+                            .HasForeignKey(d => d.DiscoverId)
+                            .WillCascadeOnDelete(false);
+
             HasRequired(t => t.Category)
                             .WithMany(t => t.Schedules)
                             .HasForeignKey(d => d.CategoryId)
-                            .WillCascadeOnDelete(false);
-
-            HasOptional(t => t.Mentored)
-                            .WithMany(t => t.Schedules)
-                            .HasForeignKey(d => d.MentoredId)
                             .WillCascadeOnDelete(false);
         }
     }

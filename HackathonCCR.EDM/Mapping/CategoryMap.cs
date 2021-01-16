@@ -1,5 +1,4 @@
-﻿using HackathonCCR.EDM.Models;
-using System.Data.Entity.ModelConfiguration;
+﻿using System.Data.Entity.ModelConfiguration;
 
 namespace HackathonCCR.EDM.Models.Mapping
 {

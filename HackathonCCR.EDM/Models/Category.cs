@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HackathonCCR.EDM.Models
 {
@@ -11,6 +8,7 @@ namespace HackathonCCR.EDM.Models
         public Category() : base("Category", "CategoryId")
         {
             Schedules = new List<Schedule>();
+            Mentors = new List<User>();
         }
 
         public Guid CategoryId { get; set; }
@@ -18,5 +16,6 @@ namespace HackathonCCR.EDM.Models
         public string Color { get; set; }
 
         public virtual ICollection<Schedule> Schedules { get; set; }
+        public virtual ICollection<User> Mentors { get; set; }
     }
 }

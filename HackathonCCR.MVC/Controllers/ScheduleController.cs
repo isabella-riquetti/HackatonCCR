@@ -2,20 +2,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HackathonCCR.MVC.Controllers
 {
     public class ScheduleController : Controller
     {
         private readonly IScheduleService _scheduleService;
-        private readonly IEmailService _emailService;
-        public ScheduleController(IScheduleService scheduleService, IEmailService emailService)
+        public ScheduleController(IScheduleService scheduleService)
         {
             _scheduleService = scheduleService;
-            _emailService = emailService;
         }
 
         public IActionResult Index()
@@ -24,54 +19,59 @@ namespace HackathonCCR.MVC.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetUserSchedules()
+        public JsonResult GetUserScheduledMentorship()
         {
-            var result = _scheduleService.GetUserSchedules();
+            var result = _scheduleService.GetUserScheduledMentorship();
             return Json(result, new JsonSerializerSettings());
         }
 
         [HttpGet]
         public JsonResult GetMentorAvailableSchedules(Guid mentorId)
         {
-
+            var result = _scheduleService.GetUserSchedules();
+            return Json(result, new JsonSerializerSettings());
         }
 
         [HttpGet]
         public JsonResult GetCategoryAvailableSchedules(Guid categoryId)
         {
-
+            var result = _scheduleService.GetUserSchedules();
+            return Json(result, new JsonSerializerSettings());
         }
 
         [HttpGet]
         public JsonResult GetDateAvailableSchedules(DateTime date)
         {
-
+            var result = _scheduleService.GetDateAvailableSchedules(date);
+            return Json(result, new JsonSerializerSettings());
         }
 
         [HttpGet]
-        public JsonResult GetCurrentSchedules()
+        public JsonResult GetCurrentAvailableSchedules()
         {
-
+            var result = _scheduleService.GetCurrentAvailableSchedules();
+            return Json(result, new JsonSerializerSettings());
         }
 
         [HttpGet]
-        int CreateAgenda(DateTime start, DateTime end, Guid categoryId)
+        public JsonResult CreateAgenda(DateTime start, DateTime end, Guid categoryId)
         {
-
+            var result = _scheduleService.CreateAgenda(start, end, categoryId);
+            return Json(result, new JsonSerializerSettings());
         }
 
         [HttpGet]
-        void Schedule(Guid scheduleId)
+        public IActionResult Schedule(Guid scheduleId)
         {
-
+            _scheduleService.Schedule(scheduleId);
+            return Ok();
         }
 
         [HttpGet]
-        void CancelSchedule(Guid scheduleId)
+        public IActionResult CancelSchedule(Guid scheduleId)
         {
-
+            _scheduleService.CancelSchedule(scheduleId);
+            return Ok();
         }
-
-        [HttpGet]
     }
 }

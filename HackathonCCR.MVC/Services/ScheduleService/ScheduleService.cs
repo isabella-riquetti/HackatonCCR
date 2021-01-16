@@ -20,11 +20,21 @@ namespace HackathonCCR.MVC.Services
             _userService = userService;
         }
 
-        public List<Schedule> GetUserSchedules(Guid? userId = null)
+        public List<Schedule> GetUserScheduledMentorship()
         {
-            userId = userId != null ? userId : _authenticationService.GetAuthenticatedUserId();
-            var schedules = _unitOfWork.RepositoryBase.GetIQueryable<Schedule>(s => s.Status != HackathonCCR.EDM.Enums.Schedule.Status.Removed && 
-                (s.MentoredId == userId || s.MentorId == userId));
+            var userId = _authenticationService.GetAuthenticatedUserId();
+            var schedules = _unitOfWork.RepositoryBase
+                .GetIQueryable<Schedule>(s => s.Status != EDM.Enums.Schedule.Status.Available
+                && (s.DiscoverId == userId || s.MentorId == userId));
+            return schedules.ToList();
+        }
+
+        public List<Schedule> GetUserSchedules()
+        {
+            var userId = _authenticationService.GetAuthenticatedUserId();
+            var schedules = _unitOfWork.RepositoryBase
+                .GetIQueryable<Schedule>(s => s.Status != HackathonCCR.EDM.Enums.Schedule.Status.Removed
+                && (s.DiscoverId == userId || s.MentorId == userId));
             return schedules.ToList();
         }
 
@@ -51,7 +61,7 @@ namespace HackathonCCR.MVC.Services
             return schedules.ToList();
         }
 
-        public List<Schedule> GetCurrentSchedules()
+        public List<Schedule> GetCurrentAvailableSchedules()
         {
             var biggerThan = DateTime.Now.Brasilia();
             var smallerThan = biggerThan.AddMinutes(30);
@@ -99,10 +109,10 @@ namespace HackathonCCR.MVC.Services
 
             var userId = _authenticationService.GetAuthenticatedUserId();
             var mentor = schedule.Mentor;
-            var mentored = _userService.Get(userId);
-            var appointmentId = _emailService.SendAppointment(mentor, mentored, schedule.ScheduleAt);
+            var discover = _userService.Get(userId);
+            var appointmentId = _emailService.SendAppointment(mentor, discover, schedule.ScheduleAt);
 
-            schedule.MentoredId = userId;
+            schedule.DiscoverId = userId;
             schedule.Status = EDM.Enums.Schedule.Status.Scheduled;
             schedule.AppointmentId = appointmentId;
 
@@ -119,14 +129,14 @@ namespace HackathonCCR.MVC.Services
             var newEmptySchedule = new Schedule()
             {
                 ScheduleId = Guid.NewGuid(),
-                MentorId = schedule.MentoredId,
+                MentorId = schedule.MentorId,
                 Status = EDM.Enums.Schedule.Status.Available,
                 ScheduleAt = schedule.ScheduleAt
             };
             _unitOfWork.RepositoryBase.Add(newEmptySchedule);
             _unitOfWork.Commit();
 
-            _emailService.Cancel(schedule.Mentor, schedule.Mentored, schedule.AppointmentId);
+            _emailService.Cancel(schedule.Mentor, schedule.Discover, (Guid)schedule.AppointmentId);
         }
     }
 }

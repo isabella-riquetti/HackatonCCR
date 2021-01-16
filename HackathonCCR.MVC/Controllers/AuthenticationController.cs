@@ -12,70 +12,22 @@ namespace HackathonCCR.MVC.Controllers
     {
         private readonly Services.IAuthenticationService _authenticationService;
         private readonly Services.IUserService _userService;
+        private readonly Services.ICategoryService _categoryService;
 
-        public AuthenticationController(Services.IAuthenticationService authenticationService, Services.IUserService userService)
+        public AuthenticationController(Services.IAuthenticationService authenticationService, Services.IUserService userService, Services.ICategoryService categoryService)
         {
             _authenticationService = authenticationService;
             _userService = userService;
+            _categoryService = categoryService;
         }
 
-        [HttpGet]
-        public ActionResult Register()
-        {
-            if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            return View("Register", null);
-        }
-
-        [HttpGet]
-        public ActionResult RegisterMentor()
-        {
-            if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            return View("RegisterMentor", null);
-        }
-
-        [HttpPost]
-        public ActionResult Register(RegisterModel model)
-        {
-            if (!ModelState.IsValid)
-                return View();
-
-            var user = _userService.Get(model.Email);
-            if (user != null)
-            {
-                ModelState.AddModelError("Email", "Email já cadastrado");
-            }
-            else
-            {
-                user = _userService.Register(model);
-
-                Authenticate(user);
-
-                return RedirectToAction("Index", "Home");
-            }
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult RegisterMentor(RegisterModel model)
-        {
-            return Register(model);
-        }
 
         [HttpGet]
         public ActionResult Login(string returnUrl)
         {
             if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
             {
-                return View();
+                return View(GetRedirectUrl(returnUrl));
             }
 
             return View("Login", null);
@@ -99,8 +51,7 @@ namespace HackathonCCR.MVC.Controllers
                 if (confirmLogin)
                 {
                     Authenticate(user);
-
-                    return RedirectToAction("Portal", "Home");
+                    return RedirectToAction("Dash", "Home");
                 }
                 else
                 {
@@ -124,7 +75,7 @@ namespace HackathonCCR.MVC.Controllers
                 AllowRefresh = true,
                 IsPersistent = true,
                 IssuedUtc = DateTime.UtcNow,
-                RedirectUri = "/Home/Index"
+                RedirectUri = "/Home/Dash"
             };
 
             var identity = new ClaimsIdentity(
@@ -134,6 +85,79 @@ namespace HackathonCCR.MVC.Controllers
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(identity),
                 authProperties);
+        }
+
+        [HttpGet]
+        public ActionResult RegisterDiscover()
+        {
+            if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Dash", "Home");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegisterDiscover(RegisterDiscoverModel model)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            var user = _userService.Get(model.Email);
+            if (user != null)
+            {
+                ModelState.AddModelError("Email", "Email já cadastrado");
+            }
+            else
+            {
+                user = _userService.Register(model);
+
+                Authenticate(user);
+
+                return RedirectToAction("Dash", "Home");
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult RegisterMentor()
+        {
+            if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Dash", "Home");
+            }
+
+            ViewBag.Graduations = _categoryService.GetCategorySelectList();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegisterMentor(RegisterMentorModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Graduations = _categoryService.GetCategorySelectList();
+                return View();
+            }
+
+            var user = _userService.Get(model.Email);
+            if (user != null)
+            {
+                ModelState.AddModelError("Email", "Email já cadastrado");
+            }
+            else
+            {
+                user = _userService.Register(model);
+
+                Authenticate(user);
+
+                return RedirectToAction("Dash", "Home");
+            }
+
+            ViewBag.Graduations = _categoryService.GetCategorySelectList();
+            return View(model);
         }
 
         public string GetRedirectUrl(string returnUrl)
@@ -148,7 +172,7 @@ namespace HackathonCCR.MVC.Controllers
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            return RedirectToAction("Login", "Authentication");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

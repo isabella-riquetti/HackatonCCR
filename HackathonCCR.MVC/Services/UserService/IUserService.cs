@@ -7,7 +7,8 @@ namespace HackathonCCR.MVC.Services
     public interface IUserService
     {
         User Get(string email);
-        User Get(Guid mentored);
-        User Register(RegisterModel model);
+        User Get(Guid id);
+        User Register(RegisterDiscoverModel model);
+        User Register(RegisterMentorModel model);
     }
 }
