@@ -36,3 +36,33 @@
   font-weight: 400;
   color: #000;
 }
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.pesquisa p {
+  position: absolute;
+  top: 0;
+  left: 70px;
+  font-size: 38px;
+  font-weight: 500;
+}
+
+.pesquisa input {
+  margin-top: 40px;
+  padding: 40px;
+  height: 60px;
+  border: none;
+  background: #EFEFEF;
+  border-radius: 20px;
+  font-size: 18px;
+}
+
+
+.search {
+  position: relative;
+  bottom: -55px;
+}
