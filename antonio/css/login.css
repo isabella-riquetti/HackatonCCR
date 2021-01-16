@@ -1,0 +1,98 @@
+body,
+h1,
+h2,
+h3,
+p,
+ul {
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+
+.login {
+  margin: 0 auto;
+  max-width: 600px;
+  margin-top: 150px;
+  padding: 20px 0;
+  text-align: center;
+}
+
+
+.login form h1 {
+  font-size: 38px;
+  font-weight: 700;
+  color: #464646;
+  margin-bottom: 35px;
+  position: relative;
+  left: -75px;
+}
+
+.login form label {
+  display: none;
+}
+
+
+.login form input {
+  display: block;
+  margin: 0 auto;
+  width: 400px;
+  background: #EEEEEE;
+  border: none;
+  border-radius: 20px;
+  margin-bottom: 40px;
+  padding: 30px;
+  font-size: 18px;
+}
+
+.login > a {
+  text-decoration: none;
+  color: #61AAFF;
+  font-weight: 400;
+}
+
+.btn {
+  display: block;
+  margin: 40px auto 300px auto;
+  width: 250px;
+  background: #8960FF;
+  padding: 20px;
+  border: none;
+  border-radius: 50px;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.footer {
+  background: #DDDCE0;
+  padding: 20px 0;
+}
+
+.footer p {
+  font-size: 18px;
+  padding-top: 20px;
+  font-weight: 500;
+  color: #8C8C8C;
+}
+
+.footer ul {
+  text-align: right;
+}
+
+.footer ul li {
+  display: inline-block;
+  margin-right: 10px;
+}
