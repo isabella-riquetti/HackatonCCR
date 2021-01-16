@@ -2,7 +2,7 @@
 
 namespace HackathonCCR.MVC.Models
 {
-    public class AuthenticationModel
+    public class LoginModel
     {
         [Required(ErrorMessage = "Campo obrigatório")]
         [DataType(DataType.EmailAddress)]

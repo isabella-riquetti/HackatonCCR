@@ -10,8 +10,8 @@
     <ProjectGuid>{089CBDC5-EA4C-4325-8D1C-8DDE80528E29}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hackaton.EDM</RootNamespace>
-    <AssemblyName>Hackaton.EDM</AssemblyName>
+    <RootNamespace>Hackathon.EDM</RootNamespace>
+    <AssemblyName>Hackathon.EDM</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -165,12 +165,16 @@
     <Compile Include="Context\HackathonCCRContext_Mapping.cs" />
     <Compile Include="Context\HackathonCCRContext_Procedures.cs" />
     <Compile Include="Context\IHackathonCCRContext.cs" />
+    <Compile Include="Enums\Schedule.cs" />
+    <Compile Include="Enums\User.cs" />
+    <Compile Include="Enums\Helper.cs" />
     <Compile Include="Helper\ExtensionMethods.cs" />
     <Compile Include="Helper\IgnoreToDatatableAttribute.cs" />
     <Compile Include="Mapping\UserMap.cs" />
     <Compile Include="Models\Base\IModelBase.cs" />
     <Compile Include="Models\Base\ModelBase.cs" />
     <Compile Include="Models\Base\ObjectTempToDelete.cs" />
+    <Compile Include="Models\Schedule.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="OperationResult.cs" />
     <Compile Include="Programmability\Functions\ScalarValuedFunctions.cs" />

@@ -20,6 +20,57 @@ namespace HackathonCCR.MVC.Controllers
         }
 
         [HttpGet]
+        public ActionResult Register()
+        {
+            if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View("Register", null);
+        }
+
+        [HttpGet]
+        public ActionResult RegisterMentor()
+        {
+            if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View("RegisterMentor", null);
+        }
+
+        [HttpPost]
+        public ActionResult Register(RegisterModel model)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            var user = _userService.GetUser(model.Email);
+            if (user != null)
+            {
+                ModelState.AddModelError("Email", "Email já cadastrado");
+            }
+            else
+            {
+                user = _userService.Register(model);
+
+                Authenticate(user);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult RegisterMentor(RegisterModel model)
+        {
+            return Register(model);
+        }
+
+        [HttpGet]
         public ActionResult Login(string returnUrl)
         {
             if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
@@ -31,7 +82,7 @@ namespace HackathonCCR.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(AuthenticationModel model)
+        public ActionResult Login(LoginModel model)
         {
             if (!ModelState.IsValid)
                 return View();
@@ -47,27 +98,7 @@ namespace HackathonCCR.MVC.Controllers
 
                 if (confirmLogin)
                 {
-                    var claims = new List<Claim>();
-
-                    claims.Add(new Claim(ClaimTypes.Name, user.Name));
-                    claims.Add(new Claim(ClaimTypes.Email, user.Email));
-                    claims.Add(new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()));
-
-                    var authProperties = new AuthenticationProperties
-                    {
-                        AllowRefresh = true,
-                        IsPersistent = true,
-                        IssuedUtc = DateTime.UtcNow,
-                        RedirectUri = "/Home/Index"
-                    };
-
-                    var identity = new ClaimsIdentity(
-                        claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                    HttpContext.SignInAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(identity),
-                        authProperties);
+                    Authenticate(user);
 
                     return RedirectToAction("Portal", "Home");
                 }
@@ -78,6 +109,31 @@ namespace HackathonCCR.MVC.Controllers
             }
 
             return View(model);
+        }
+
+        private void Authenticate(EDM.Models.User user)
+        {
+            var claims = new List<Claim>();
+
+            claims.Add(new Claim(ClaimTypes.Name, user.Name));
+            claims.Add(new Claim(ClaimTypes.Email, user.Email));
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()));
+
+            var authProperties = new AuthenticationProperties
+            {
+                AllowRefresh = true,
+                IsPersistent = true,
+                IssuedUtc = DateTime.UtcNow,
+                RedirectUri = "/Home/Index"
+            };
+
+            var identity = new ClaimsIdentity(
+                claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(identity),
+                authProperties);
         }
 
         public string GetRedirectUrl(string returnUrl)

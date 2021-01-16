@@ -1,0 +1,34 @@
+﻿@model RegisterModel
+
+
+@using (Html.BeginForm())
+{
+    <h2>Entrar</h2>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.EditorFor(m => m.Name, new { htmlAttributes = new { placeholder = "Digite seu nome completo", @class = "form-control" } })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email)
+        @Html.EditorFor(m => m.Email, new { htmlAttributes = new { placeholder = "Digite seu e-mail", @class = "form-control" } })
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password)
+        @Html.EditorFor(m => m.Password, new { htmlAttributes = new { placeholder = "Digite sua senha", @class = "form-control" } })
+        @Html.ValidationMessageFor(m => m.Password)
+    </div>
+
+    <div class="form-group" style="margin-bottom:39px;">
+        @Html.LabelFor(m => m.ConfirmPassword)
+        @Html.EditorFor(m => m.ConfirmPassword, new { htmlAttributes = new { placeholder = "Digite sua senha", @class = "form-control" } })
+        @Html.ValidationMessageFor(m => m.Password)
+    </div>
+
+    @Html.Hidden("Type", 1)
+
+    <input class="btn btn-lg btn-primary btn-block" type="submit" name="Cadastrar" value="Cadastrar" />
+}

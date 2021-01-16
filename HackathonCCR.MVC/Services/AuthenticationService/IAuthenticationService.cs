@@ -5,6 +5,6 @@ namespace HackathonCCR.MVC.Services
 {
     public interface IAuthenticationService
     {
-        bool ConfirmLogin(User user, AuthenticationModel model);
+        bool ConfirmLogin(User user, LoginModel model);
     }
 }

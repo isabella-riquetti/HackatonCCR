@@ -6,7 +6,7 @@ namespace HackathonCCR.MVC.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        public bool ConfirmLogin(User user, AuthenticationModel model)
+        public bool ConfirmLogin(User user, LoginModel model)
         {
             var aux = Crypt.Encrypt("123456");
             if (user == null || Crypt.Encrypt(user.Password) != model.Password)

@@ -24,7 +24,9 @@ namespace HackathonCCR.EDM.Models
         [Display(Name = "Senha")]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "A '{0}' é obrigatória")]
-        [RegularExpression(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$")]
+        [RegularExpression(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$", ErrorMessage = "A senha deve conter ao menos uma letra maiúscula, uma letra minúscula e um número")]
         public string Password { get; set; }
+
+        public HackathonCCR.EDM.Enums.User.Type Type { get; set; }
     }
 }
