@@ -14,9 +14,15 @@ namespace HackathonCCR.MVC.Services
             _unitOfWork = unitOfWork;
         }
 
-        public User GetUser(object email)
+        public User Get(string email)
         {
             var user = _unitOfWork.RepositoryBase.FirstOrDefault<User>(u => u.Email == email);
+            return user;
+        }
+
+        public User Get(Guid id)
+        {
+            var user = _unitOfWork.RepositoryBase.FirstOrDefault<User>(u => u.UserId == id);
             return user;
         }
 

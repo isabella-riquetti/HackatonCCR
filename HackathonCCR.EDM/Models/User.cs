@@ -1,4 +1,7 @@
+using HackathonCCR.EDM.Models;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace HackathonCCR.EDM.Models
@@ -7,6 +10,8 @@ namespace HackathonCCR.EDM.Models
     {
         public User() : base("User", "UserId")
         {
+            Mentorings = new List<Schedule>();
+            Schedules = new List<Schedule>();
         }
 
         public Guid UserId { get; set; }
@@ -28,5 +33,8 @@ namespace HackathonCCR.EDM.Models
         public string Password { get; set; }
 
         public HackathonCCR.EDM.Enums.User.Type Type { get; set; }
+
+        public virtual ICollection<Schedule> Mentorings { get; set; }
+        public virtual ICollection<Schedule> Schedules { get; set; }
     }
 }

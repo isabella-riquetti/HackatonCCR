@@ -1,11 +1,13 @@
 ﻿using HackathonCCR.EDM.Models;
 using HackathonCCR.MVC.Models;
+using System;
 
 namespace HackathonCCR.MVC.Services
 {
     public interface IUserService
     {
-        User GetUser(object email);
+        User Get(string email);
+        User Get(Guid mentored);
         User Register(RegisterModel model);
     }
 }

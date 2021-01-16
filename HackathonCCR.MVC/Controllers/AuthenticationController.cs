@@ -47,7 +47,7 @@ namespace HackathonCCR.MVC.Controllers
             if (!ModelState.IsValid)
                 return View();
 
-            var user = _userService.GetUser(model.Email);
+            var user = _userService.Get(model.Email);
             if (user != null)
             {
                 ModelState.AddModelError("Email", "Email já cadastrado");
@@ -75,7 +75,7 @@ namespace HackathonCCR.MVC.Controllers
         {
             if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
             {
-                return RedirectToAction(GetRedirectUrl(returnUrl));
+                return View();
             }
 
             return View("Login", null);
@@ -87,7 +87,7 @@ namespace HackathonCCR.MVC.Controllers
             if (!ModelState.IsValid)
                 return View();
 
-            var user = _userService.GetUser(model.Email);
+            var user = _userService.Get(model.Email);
             if (user == null)
             {
                 ModelState.AddModelError("Email", "Usuário não encontrado");
