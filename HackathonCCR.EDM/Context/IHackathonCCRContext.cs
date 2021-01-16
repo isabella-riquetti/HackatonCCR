@@ -5,7 +5,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace HackathonCCR.EDM.Context
 {
-    public interface IBaseContext : IDisposable
+    public interface IHackathonCCRContext : IDisposable
     {
         Database Database { get; }
         DbSet Set(Type entityType);

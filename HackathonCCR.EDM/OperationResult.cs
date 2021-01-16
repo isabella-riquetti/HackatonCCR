@@ -1,4 +1,4 @@
-﻿namespace HackathonCCR.Data
+﻿namespace HackathonCCR.EDM
 {
     public class OperationResult
     {

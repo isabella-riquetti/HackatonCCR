@@ -7,27 +7,17 @@ namespace HackathonCCR.EDM.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        public readonly IBaseContext _context;
+        public readonly IHackathonCCRContext _context;
 
         public Repository.Base.IRepositoryBase<ModelBase> RepositoryBase { get; set; }
         public IStoredProcedureRepository StoredProcedure { get; set; }
 
         public UnitOfWork()
         {
-            _context = new BaseContext();
+            _context = new HackathonCCRContext();
             RepositoryBase = new Repository.Base.RepositoryBase<ModelBase>(_context);
             StoredProcedure = new StoredProcedureRepository(_context);
         }
-
-        // TODO: Injeção de dependência
-        //public UnitOfWork(IRepositoryBase<ModelBase> repositoryBase,
-        //    IStoredProcedureRepository storedProcedure)
-        //{
-        //    RepositoryBase = repositoryBase;
-        //    StoredProcedure = storedProcedure;
-
-        //    _context = RepositoryBase.GetContext();
-        //}
 
         private bool _disposed;
 

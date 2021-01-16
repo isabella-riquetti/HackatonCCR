@@ -1,21 +1,23 @@
-﻿using HackathonCCR.MVC.Models;
+﻿using HackathonCCR.EDM.Models;
+using HackathonCCR.EDM.UnitOfWork;
+using HackathonCCR.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
 namespace HackathonCCR.MVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IUnitOfWork unitOfWork)
         {
-            _logger = logger;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
+            var aux = _unitOfWork.RepositoryBase.Get<User>();
             return View();
         }
 

@@ -1,10 +1,8 @@
-﻿using HackathonCCR.Data;
-using HackathonCCR.EDM.Context;
+﻿using HackathonCCR.EDM.Context;
 using HackathonCCR.EDM.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -12,16 +10,16 @@ namespace HackathonCCR.EDM.Repository.Base
 {
     public class RepositoryBase<TEntity> : IDisposable, IRepositoryBase<TEntity> where TEntity : ModelBase
     {
-        internal IBaseContext Context;
+        internal IHackathonCCRContext Context;
         internal System.Data.Entity.DbSet<TEntity> DbSet;
 
-        public RepositoryBase(IBaseContext context)
+        public RepositoryBase(IHackathonCCRContext context)
         {
             this.Context = context;
             this.DbSet = context.Set<TEntity>();
         }
 
-        public IBaseContext GetContext()
+        public IHackathonCCRContext GetContext()
         {
             return Context;
         }

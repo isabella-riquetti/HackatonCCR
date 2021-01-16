@@ -1,0 +1,24 @@
+﻿@model LoginModel
+
+
+@using (Html.BeginForm())
+{
+    <h2>Entrar</h2>
+    <div class="form-group">
+        <label>Login</label>
+        <div class="form-group">
+            @Html.EditorFor(m => m.Email, new { htmlAttributes = new { placeholder = "Digite seu e-mail", @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom:39px;">
+        <label>Senha</label>
+        <div class="form-group">
+            @Html.EditorFor(m => m.Password, new { htmlAttributes = new { placeholder = "Digite sua senha", @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+    </div>
+
+    <input class="btn btn-lg btn-primary btn-block" type="submit" name="Entrar" value="Entrar" />
+}

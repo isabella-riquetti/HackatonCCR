@@ -4,9 +4,9 @@ namespace HackathonCCR.EDM.Repository
 {
     public class StoredProcedureRepository : IStoredProcedureRepository
     {
-        private readonly IBaseContext _context;
+        private readonly IHackathonCCRContext _context;
 
-        public StoredProcedureRepository(IBaseContext context)
+        public StoredProcedureRepository(IHackathonCCRContext context)
         {
             _context = context;
         }
