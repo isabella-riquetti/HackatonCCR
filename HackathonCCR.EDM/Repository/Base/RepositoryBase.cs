@@ -1,10 +1,8 @@
-﻿using HackathonCCR.Data;
-using HackathonCCR.EDM.Context;
+﻿using HackathonCCR.EDM.Context;
 using HackathonCCR.EDM.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 

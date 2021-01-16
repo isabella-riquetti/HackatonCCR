@@ -2,7 +2,6 @@
 using HackathonCCR.EDM.UnitOfWork;
 using HackathonCCR.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
 namespace HackathonCCR.MVC.Controllers

@@ -53,7 +53,7 @@ namespace HackathonCCR.MVC
             app.UseAuthorization();
             app.UseCookiePolicy(new CookiePolicyOptions()
             {
-                
+
             });
 
             app.UseEndpoints(endpoints =>
