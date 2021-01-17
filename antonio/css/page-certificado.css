@@ -1,0 +1,14 @@
+.header-conquistas h1 {
+  position: relative;
+  bottom: -5px;
+}
+
+.certificado img {
+  margin-bottom: 20px;
+}
+
+.certificado p {
+  color: #757575;
+  font-weight: 500;
+}
+
