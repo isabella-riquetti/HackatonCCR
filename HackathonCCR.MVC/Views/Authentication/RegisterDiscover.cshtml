@@ -32,11 +32,12 @@
 
 <body>
     <section class="login container">
-
         <div class="login-components">
+            <a href="@Url.Action("Index","Home")">
+                <img src="~/img/logo.png" id="logo" />
+            </a>
             @using (Html.BeginForm())
             {
-                <img src="~/img/logo.png" id="logo" />
                 <h1>Crie sua conta</h1>
                 <div class="form-group">
                     @Html.LabelFor(m => m.Name)
@@ -69,21 +70,21 @@
                 </div>
 
                 @*var<div class="form-group">
-                        @Html.LabelFor(m => m.Picture)
-                        <br /><input type="file" name="Picture" id="Picture" accept=".png" class="img" />
-                        @Html.ValidationMessageFor(m => m.Picture)
-                    </div>
+                @Html.LabelFor(m => m.Picture)
+                <br /><input type="file" name="Picture" id="Picture" accept=".png" class="img" />
+                @Html.ValidationMessageFor(m => m.Picture)
+            </div>
 
-                     display = "none";
-                    if (Model?.Picture != null)
-                    {
-                        display = "block";
-                    }
+             display = "none";
+            if (Model?.Picture != null)
+            {
+                display = "block";
+            }
 
-                    <div class="form-group" style="display: @display" id="displayImage">
-                        @Html.Label("Foto carregada")
-                        <img src="data:image/png;base64,@base64String" alt="" id="picture-img" /><br />
-                    </div>*@
+            <div class="form-group" style="display: @display" id="displayImage">
+                @Html.Label("Foto carregada")
+                <img src="data:image/png;base64,@base64String" alt="" id="picture-img" /><br />
+            </div>*@
                 @Html.HiddenFor(m => m.Type)
                 <input class="btn" style="margin-top:39px;" type="submit" name="Cadastrar" value="Cadastrar" />
                 <p>Já possui conta? @Html.ActionLink("Entrar", "Login", "Authentication")</p>
