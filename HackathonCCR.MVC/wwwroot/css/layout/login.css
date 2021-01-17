@@ -4,21 +4,28 @@ h2,
 h3,
 p,
 ul {
-  padding: 0px;
-  margin: 0px;
+    padding: 0px;
+    margin: 0px;
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 img {
-  max-width: 100%;
-  display: block;
+    max-width: 100%;
+    display: block;
+}
+
+#logo {
+    margin: 0 auto;
+    margin-bottom: 50px;
+    position: relative;
+    align-content: center;
 }
 
 .login-components {
@@ -34,69 +41,67 @@ img {
     text-align: center;
 }
 
-
-.login form h1 {
-  font-size: 38px;
-  font-weight: 700;
-  color: #464646;
-  margin-bottom: 35px;
-  position: relative;
-  float: left;
-}
-
-    .login img {
+    .login form h1 {
         font-size: 38px;
         font-weight: 700;
         color: #464646;
+        margin-bottom: 35px;
+        position: relative;
+        float: left;
+    }
+
+    .login form label {
+        display: none;
+    }
+
+
+    .login form input:not(.img) {
+        display: block;
         margin: 0 auto;
-        margin-bottom: 50px;
+        width: 400px;
+        background: #EEEEEE;
+        border: none;
+        border-radius: 20px;
+        padding: 30px;
+        font-size: 18px;
+    }
+
+    .login img {
+        margin: 0 auto;
         position: relative;
         align-content: center;
     }
 
-.login form label {
-  display: none;
-}
+    .login > a {
+        text-decoration: none;
+        color: #61AAFF;
+        font-weight: 400;
+    }
 
-
-.login form input {
-  display: block;
-  margin: 0 auto;
-  width: 400px;
-  background: #EEEEEE;
-  border: none;
-  border-radius: 20px;
-  margin-bottom: 40px;
-  padding: 30px;
-  font-size: 18px;
-}
-
-.login > a {
-  text-decoration: none;
-  color: #61AAFF;
-  font-weight: 400;
+.form-group {
+    margin-bottom: 40px;
 }
 
 .footer {
-  background: #DDDCE0;
-  padding: 20px 0;
+    background: #DDDCE0;
+    padding: 20px 0;
 }
 
-.footer p {
-  font-size: 18px;
-  padding-top: 20px;
-  font-weight: 500;
-  color: #8C8C8C;
-}
+    .footer p {
+        font-size: 18px;
+        padding-top: 20px;
+        font-weight: 500;
+        color: #8C8C8C;
+    }
 
-.footer ul {
-  text-align: right;
-}
+    .footer ul {
+        text-align: right;
+    }
 
-.footer ul li {
-  display: inline-block;
-  margin-right: 10px;
-}
+        .footer ul li {
+            display: inline-block;
+            margin-right: 10px;
+        }
 
 .login form input.btn {
     display: block;
@@ -108,4 +113,9 @@ img {
     font-size: 24px;
     color: #fff;
     cursor: pointer;
+}
+
+.field-validation-error {
+    color: #8960ff;
+    font-weight: bold;
 }

@@ -20,7 +20,7 @@
         <div class="login-components">
             @using (Html.BeginForm())
             {
-                <img src="~/img/logo.png" />
+                <img src="~/img/logo.png" id="logo"/>
                 <h1>Faça seu login</h1>
                 <div class="form-group">
                     @Html.EditorFor(m => m.Email, new { htmlAttributes = new { placeholder = "Email" } })
@@ -33,7 +33,7 @@
                 </div>
 
                 <a href="#">Esqueceu sua senha?</a>
-                <input class="btn" type="submit" name="Entrar" value="Entrar" />
+                <input class="btn" type="submit" name="Entrar" value="Entrar" style="margin-top: 20px" />
             }
         </div>
     </section>
@@ -50,7 +50,6 @@
             </ul>
         </div>
     </footer>
-
 </body>
 
 </html>
