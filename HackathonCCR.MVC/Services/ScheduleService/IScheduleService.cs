@@ -10,9 +10,9 @@ namespace HackathonCCR.MVC.Services
         List<UserSchedule> GetUserScheduledMentorship();
         List<Schedule> GetUserSchedules();
         List<Schedule> GetMentorAvailableSchedules(Guid mentorId);
-        List<Schedule> GetCategoryAvailableSchedules(Guid categoryId);
+        List<UserSchedule> GetCategoryAvailableSchedules(Guid categoryId);
         SchedulesByDate GetDateAvailableSchedules(DateTime date);
-        List<UserSchedule> GetCurrentAvailableSchedules();
+        List<UserSchedule> GetCurrentAvailableSchedules(Guid? categoryId);
         int CreateAgenda(DateTime start, DateTime end, Guid categoryId);
         void Schedule(Guid scheduleId);
         void CancelSchedule(Guid scheduleId);

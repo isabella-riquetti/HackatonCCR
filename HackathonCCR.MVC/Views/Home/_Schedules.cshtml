@@ -1,0 +1,29 @@
+﻿@model List<HackathonCCR.MVC.Models.Schedule.UserSchedule>
+
+    <link href="~/css/layout/aluno-logado.css" rel="stylesheet" />
+    <div class="lista-mentores">
+        @foreach (var item in Model)
+        {
+            <div class="row mentoria">
+                <div class="col-md-7">
+                    <div style="float: left" class="mask">
+                        <img src="data:image/png;base64,@item.PartnerPicture" class="partner-picture">
+                    </div>
+                    <div class="info-mentor">
+                        <h1>@item.PartnerName</h1>
+                        <span class="course">@item.Course</span>
+                    </div>
+                </div>
+                <div class="col-md-2 agendamento hora">
+                    <h3 class="cabecalho">Horário</h3>
+                    <span class="dados">@item.ScheduleTime</span>
+                </div>
+
+                <div class="col-md-3 agendamento data">
+                    <h3 class="cabecalho">Data</h3>
+                    <span class="dados">@item.ScheduleDate</span>
+                </div>
+            </div>
+        }
+
+    </div>

@@ -1,14 +1,19 @@
 ﻿@model List<HackathonCCR.MVC.Models.Schedule.UserSchedule>
 <link href="~/css/layout/painel-aluno.css" rel="stylesheet" />
 
-@foreach (var item in Model)
-{
-    <div class="col-md-4 mentor-modelo">
-        <img src="data:image/png;base64,@item.PartnerPicture" class="partner-picture"><br/>
-        <span class="nome">@item.PartnerFirstName</span>
-        <p>@item.Course</p>
-    </div>
-}
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mentor-modelo">
+            <div class="mask">
+                <img src="data:image/png;base64,@item.PartnerPicture" class="partner-picture"><br />
+            </div>
+            <br />
+            <span class="nome">@item.PartnerFirstName</span>
+            <p>@item.Course</p>
+        </div>
+    }
+</div>
 
 <script>
     $(document).ready(function () {

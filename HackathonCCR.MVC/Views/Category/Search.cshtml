@@ -1,9 +1,10 @@
 ﻿@model List<SelectListItem>
-@{ 
+@{
     ViewData["Title"] = "D.Grau - Busca";
 }
 
 <link href="~/lib/select2/select2.min.css" rel="stylesheet" />
+<link href="~/css/layout/painel-aluno.css" rel="stylesheet" />
 
 <div class="search-category col-md-12">
     <h1>
@@ -12,8 +13,20 @@
     </h1>
     @Html.DropDownList("CategoryId", Model, "Selecione o curso")
 </div>
+<div class="header-online col-md-12">
+    <img class="icon" src="~/img/bandeira.png">
+    <span class="header-online-title">Mentores online</span>
+    <div id="available-mentors">
 
+    </div>
+</div>
+<div class="header-online col-md-12">
+    <img class="icon" src="~/img/agenda.png" width="35">
+    <span class="header-online-title">Mentorias disponíveis</span>
+    <div id="available-courses">
 
+    </div>
+</div>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/select2/select2.min.js"></script>
@@ -22,15 +35,67 @@
         width: '100%'
     });
 
+    $("#CategoryId").on("change", function () {
+        var value = $(this).val();
+        $.ajax({
+            url: '@Url.Action("GetCurrentAvailableSchedules", "Schedule")',
+            type: 'GET',
+            cache: false,
+            data: { categoryId: value }
+        }).done(function (result) {
+            $('#available-mentors').html(result);
+            $("#available-mentors .col-md-4").each(function (index) {
+                $(this).removeClass("col-md-4").addClass("col-md-2");
+            });
+        });
+
+        $.ajax({
+            url: '@Url.Action("GetCategoryAvailableSchedules", "Schedule")',
+            type: 'GET',
+            cache: false,
+            data: { categoryId: value }
+        }).done(function (result) {
+            $('#available-courses').html(result);
+        });
+    })
 </script>
 <style>
-    .search-category h1 {  
+
+    .mentor-modelo {
+        background-color: #F0F0F0;
+    }
+
+    .mentores-online h2 {
+        position: absolute;
+        top: 38px;
+        left: 90px;
+        color: #767676;
+        font-weight: 400;
+        font-size: 24px;
+    }
+
+    .header-online {
+        margin-top: 50px;
+    }
+
+        .header-online .icon {
+            margin-top: -15px;
+        }
+
+    .header-online-title {
+        color: #767676;
+        font-size: 2em;
+        margin-left: 30px;
+    }
+
+    .search-category h1 {
         margin-bottom: 30px;
     }
-    .search-category h1 span {
-        margin-left: 20px;
-        padding-top: 5px;
-    }
+
+        .search-category h1 span {
+            margin-left: 20px;
+            padding-top: 5px;
+        }
 
     .select2-container--default .select2-selection--single {
         height: 70px;
