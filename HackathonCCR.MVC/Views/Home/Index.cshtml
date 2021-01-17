@@ -34,10 +34,22 @@
     <section class="container">
         <div class="row">
             <div class="intro-2 col-md-6">
-                <h1>Para todos os estudantes, para todas séries!</h1>
-                <p>Nós queremos dar uma experiência de carreira de primeira mão</p>
-                @Html.ActionLink("Estudante", "RegisterDiscover", "Authentication")
-                @Html.ActionLink("Mentor", "RegisterMentor", "Authentication")
+                <h1>Descubra a sua próxima profissão!</h1>
+                <p>Cadastre-se aqui e converse com as pessoas da carreira que você quer conhecer</p>
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        @Html.ActionLink("Estudante", "RegisterDiscover", "Authentication")
+                        <div>
+                            <span>Conheça profissionais de várias áreas</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        @Html.ActionLink("Mentor", "RegisterMentor", "Authentication")
+                        <div>
+                            <span>Compartlhe sua experiência e ganhe recompensas</span>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="intro col-md-6">
                 <img src="~/img/estudante.png" alt="">

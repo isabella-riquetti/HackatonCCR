@@ -1,5 +1,6 @@
 ﻿using HackathonCCR.EDM.Models;
 using HackathonCCR.EDM.UnitOfWork;
+using HackathonCCR.MVC.Models.Schedule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,13 +21,33 @@ namespace HackathonCCR.MVC.Services
             _userService = userService;
         }
 
-        public List<Schedule> GetUserScheduledMentorship()
+        public List<UserSchedule> GetUserScheduledMentorship()
         {
             var userId = _authenticationService.GetAuthenticatedUserId();
-            var schedules = _unitOfWork.RepositoryBase
-                .GetIQueryable<Schedule>(s => s.Status != EDM.Enums.Schedule.Status.Available
+            var schedules = new List<UserSchedule>();
+            var schedulesDb = _unitOfWork.RepositoryBase
+                .Get<Schedule>(s => s.Status != EDM.Enums.Schedule.Status.Available
                 && (s.DiscoverId == userId || s.MentorId == userId));
-            return schedules.ToList();
+            foreach (var scheduleDb in schedulesDb)
+            {
+                var courseName = scheduleDb.Category.Description;
+                var time = String.Concat(scheduleDb.ScheduleAt.ToShortTimeString(), " - " + scheduleDb.ScheduleAt.AddMinutes(30).ToShortTimeString());
+                var date = scheduleDb.ScheduleAt.ToShortDateString();
+                var partner = scheduleDb.MentorId == userId ? scheduleDb.Discover : scheduleDb.Mentor;
+                var partnerName = partner.Name;
+                var partnerPicture = partner.Picture != null && partner.Picture.Length > 0 ? Convert.ToBase64String(partner.Picture) : null;
+
+                var schedule = new UserSchedule()
+                {
+                    Course = courseName,
+                    PartnerName = partnerName,
+                    PartnerPicture = partnerPicture,
+                    ScheduleDate = date,
+                    ScheduleTime = time
+                };
+                schedules.Add(schedule);
+            }
+            return schedules;
         }
 
         public List<Schedule> GetUserSchedules()

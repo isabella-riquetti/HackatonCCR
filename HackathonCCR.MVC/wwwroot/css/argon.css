@@ -898,7 +898,7 @@
 
         .navbar-vertical .navbar-collapse:before {
             display: block;
-            margin: .5rem;
+            margin: 5rem;
             content: '';
         }
 }

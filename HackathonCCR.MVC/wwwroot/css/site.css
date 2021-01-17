@@ -54,3 +54,7 @@
 .pull-left {
     float: left;
 }
+
+.user-picture {
+    border-radius: 50%;
+}

@@ -10,9 +10,11 @@ namespace HackathonCCR.MVC.Services
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public UserService(IUnitOfWork unitOfWork)
+        private readonly IAuthenticationService _authenticationService;
+        public UserService(IUnitOfWork unitOfWork, IAuthenticationService authenticationService)
         {
             _unitOfWork = unitOfWork;
+            _authenticationService = authenticationService;
         }
 
         public User Get(string email)
@@ -77,6 +79,14 @@ namespace HackathonCCR.MVC.Services
             _unitOfWork.Commit();
 
             return user;
+        }
+
+        public string GetUserPicure()
+        {
+            var userId = _authenticationService.GetAuthenticatedUserId();
+            var user = _unitOfWork.RepositoryBase.FirstOrDefault<User>(u => u.UserId == userId);
+            var picture = user.Picture != null && user.Picture.Length > 0 ? Convert.ToBase64String(user.Picture) : null;
+            return picture;
         }
     }
 }

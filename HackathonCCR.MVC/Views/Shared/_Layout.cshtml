@@ -84,7 +84,7 @@
                 <p>@User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value</p>
             </div>
             <div class="col-md-1 user-icon">
-                <img src="~/img/photo-user.png" alt="" width="65">
+                <img src="~/img/photo-user.png" alt="" id="user-picture" class="user-picture" width="65">
                 <ul class="navbar-nav align-items-center ml-md-auto ">
                     <li class="nav-item d-xl-none">
                         <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
@@ -114,13 +114,6 @@
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/js/argon.js"></script>
-    @*<script src="~/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/vendor/js-cookie/js.cookie.js"></script>
-        <script src="~/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
-        <script src="~/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>*@
-
-    <!-- Argon JS -->
-    <script src="~/js/argon.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -128,7 +121,23 @@
             if ('@focusOn' != '') {
                 $("@focusOn").focus();
             }
+
+            var storedUserPicture = localStorage.getItem('userPicture');
+            if (storedUserPicture) {
+                var src = 'data:image/png;base64,' + storedUserPicture;
+                $("#user-picture").attr('src', src);
+                $("#user-picture").prop('src', src);
+            }
+            else {
+                $.get("@Url.Action("GetUserPicture", "User")", function (data, status) {
+                    storedUserPicture = data;
+                    localStorage.setItem('userPicture', storedUserPicture);
+                    var src = 'data:image/png;base64,' + storedUserPicture;
+                    $("#user-picture").attr('src', src);
+                });
+            }
         });
+
     </script>
     @RenderSection("Scripts", required: false)
 </body>

@@ -87,7 +87,7 @@
 
     .mentoria .agendamento {
         text-align: center;
-        padding-top: 20px;
+        padding-top: 10px;
     }
         .mentoria .agendamento.data {
             text-align: right;
@@ -108,7 +108,7 @@
         }
 
 .info-mentor {
-    padding-top: 20px;
+    padding-top: 10px;
     margin-left: 120px;
 }
 
@@ -169,4 +169,9 @@
 
 .cinza {
     color: #767676;
+}
+
+.partner-picture {
+    max-width: 75px;
+    border-radius: 50%;
 }

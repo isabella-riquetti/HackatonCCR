@@ -25,12 +25,12 @@
             {
                 <h1>Faça seu login</h1>
                 <div class="form-group">
-                    @Html.EditorFor(m => m.Email, new { htmlAttributes = new { placeholder = "Email" } })
+                    @Html.EditorFor(m => m.Email, new { htmlAttributes = new { placeholder = "Email", @class= "email" } })
                     @Html.ValidationMessageFor(m => m.Email)
                 </div>
 
                 <div class="form-group">
-                    @Html.EditorFor(m => m.Password, new { htmlAttributes = new { placeholder = "Senha" } })
+                    @Html.EditorFor(m => m.Password, new { htmlAttributes = new { placeholder = "Senha", @class= "password" } })
                     @Html.ValidationMessageFor(m => m.Password)
                 </div>
 

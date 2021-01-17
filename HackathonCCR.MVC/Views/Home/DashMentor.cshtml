@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<HackathonCCR.MVC.Models.Schedule.UserSchedule>
+@{
     ViewData["Title"] = "Início - Mentor";
 }
 <link href="~/css/layout/aluno-logado.css" rel="stylesheet" />
@@ -11,26 +12,26 @@
     </div>
 
     <div class="lista-mentores">
-        @for (int i = 0; i < 3; i++) //Pendente model
+        @foreach (var item in Model)
         {
             <div class="row mentoria">
                 <div class="col-md-6">
                     <div style="float: left">
-                        <img src="~/img/photo-user.png" alt="">
+                        <img src="data:image/png;base64,@item.PartnerPicture" class="partner-picture">
                     </div>
                     <div class="info-mentor">
-                        <h1>Bruno Pereira</h1>
-                        <span class="course">Designer</span>
+                        <h1>@item.PartnerName</h1>
+                        <span class="course">@item.Course</span>
                     </div>
                 </div>
                 <div class="col-md-3 agendamento hora">
                     <h3 class="cabecalho">Horário</h3>
-                    <span class="dados">09:00h - 11:00h</span>
+                    <span class="dados">@item.ScheduleTime</span>
                 </div>
 
                 <div class="col-md-3 agendamento data">
                     <h3 class="cabecalho">Data</h3>
-                    <span class="dados">30/01/2021</span>
+                    <span class="dados">@item.ScheduleDate</span>
                 </div>
             </div>
         }
@@ -52,5 +53,4 @@
             <p class="cinza">Horas restantes: 0h</p>
         </div>
     </div>
-
 </section>

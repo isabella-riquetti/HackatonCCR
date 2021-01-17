@@ -26,9 +26,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link href="~/lib/select2/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/layout/login.css">
     <link rel="stylesheet" href="~/css/layout/cadastro.css">
-    <title>Front-end Hack</title>
+    <title>Cadastro Mentor</title>
 </head>
 
 <body>
@@ -42,69 +43,69 @@
                 <h1>Crie sua conta</h1>
                 <div class="form-group">
                     @Html.LabelFor(m => m.Name)
-                    @Html.EditorFor(m => m.Name, new { htmlAttributes = new { placeholder = "Nome", @class = "form-control" } })
+                    @Html.EditorFor(m => m.Name, new { htmlAttributes = new { placeholder = "Nome", @class = "name" } })
                     @Html.ValidationMessageFor(m => m.Name)
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(m => m.Email)
-                    @Html.EditorFor(m => m.Email, new { htmlAttributes = new { placeholder = "E-mail", @class = "form-control" } })
+                    @Html.EditorFor(m => m.Email, new { htmlAttributes = new { placeholder = "E-mail", @class = "email" } })
                     @Html.ValidationMessageFor(m => m.Email)
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(m => m.PhoneNumber)
-                    @Html.EditorFor(m => m.PhoneNumber, new { htmlAttributes = new { placeholder = "Celular", @class = "form-control" } })
+                    @Html.EditorFor(m => m.PhoneNumber, new { htmlAttributes = new { placeholder = "Celular", @class = "phone" } })
                     @Html.ValidationMessageFor(m => m.PhoneNumber)
                 </div>
 
 
                 <div class="form-group">
                     @Html.LabelFor(m => m.GraduationId)
-                    @Html.DropDownListFor(m => m.GraduationId, (List<SelectListItem>)ViewBag.Graduations, "Curso", new { @class = "form-control" })
+                    @Html.DropDownListFor(m => m.GraduationId, (List<SelectListItem>)ViewBag.Graduations, "Selecione um curso", new { @class = "course" })
                     @Html.ValidationMessageFor(m => m.GraduationId)
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(m => m.RemainingMissingHours)
-                    @Html.EditorFor(m => m.RemainingMissingHours, new { htmlAttributes = new { placeholder = "Horas complementares pendentes", @class = "form-control" } })
+                    @Html.EditorFor(m => m.RemainingMissingHours, new { htmlAttributes = new { placeholder = "Horas complementares pendentes", @class = "missing-hours" } })
                     @Html.ValidationMessageFor(m => m.RemainingMissingHours)
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(m => m.WorkingField)
-                    @Html.EditorFor(m => m.WorkingField, new { htmlAttributes = new { placeholder = "Cargo (opcional)", @class = "form-control" } })
-                    @Html.ValidationMessageFor(m => m.WorkingField)
-                </div>
+                @*<div class="form-group">
+                        @Html.LabelFor(m => m.WorkingField)
+                        @Html.EditorFor(m => m.WorkingField, new { htmlAttributes = new { placeholder = "Cargo (opcional)", @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.WorkingField)
+                    </div>*@
 
                 <div class="form-group">
                     @Html.LabelFor(m => m.Password)
-                    @Html.EditorFor(m => m.Password, new { htmlAttributes = new { placeholder = "Senha", @class = "form-control" } })
+                    @Html.EditorFor(m => m.Password, new { htmlAttributes = new { placeholder = "Senha", @class = "password" } })
                     @Html.ValidationMessageFor(m => m.Password)
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(m => m.ConfirmPassword)
-                    @Html.EditorFor(m => m.ConfirmPassword, new { htmlAttributes = new { placeholder = "Repita sua senha", @class = "form-control" } })
+                    @Html.EditorFor(m => m.ConfirmPassword, new { htmlAttributes = new { placeholder = "Repita sua senha", @class = "password" } })
                     @Html.ValidationMessageFor(m => m.Password)
                 </div>
 
                 @*<div class="form-group">
-                @Html.LabelFor(m => m.Picture)
-                <br /><input type="file" name="Picture" id="Picture" accept=".png" class="img" />
-                @Html.ValidationMessageFor(m => m.Picture)
-            </div>
+                        @Html.LabelFor(m => m.Picture)
+                        <br /><input type="file" name="Picture" id="Picture" accept=".png" class="img" />
+                        @Html.ValidationMessageFor(m => m.Picture)
+                    </div>
 
-            var display = "none";
-            if (Model?.Picture != null)
-            {
-                display = "block";
-            }
+                    var display = "none";
+                    if (Model?.Picture != null)
+                    {
+                        display = "block";
+                    }
 
-            <div class="form-group" style="display: @display" id="displayImage">
-                @Html.Label("Foto carregada")
-                <img src="data:image/png;base64,@base64String" alt="" id="picture-img" /><br />
-            </div>*@
+                    <div class="form-group" style="display: @display" id="displayImage">
+                        @Html.Label("Foto carregada")
+                        <img src="data:image/png;base64,@base64String" alt="" id="picture-img" /><br />
+                    </div>*@
                 @Html.HiddenFor(m => m.Type)
                 <input class="btn" type="submit" name="Cadastrar" value="Cadastrar" />
                 <p>Já possui conta? @Html.ActionLink("Entrar", "Login", "Authentication")</p>
@@ -124,7 +125,11 @@
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/select2/select2.min.js"></script>
     <script>
+        $(".course").select2({
+            width: '100%'
+        });
         $('#Picture').change(function () {
             var input = this;
             var url = $(this).val();
