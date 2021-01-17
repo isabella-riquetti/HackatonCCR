@@ -47,10 +47,10 @@ namespace HackathonCCR.MVC.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetCurrentAvailableSchedules()
+        public PartialViewResult GetCurrentAvailableSchedules()
         {
             var result = _scheduleService.GetCurrentAvailableSchedules();
-            return Json(result, new JsonSerializerSettings());
+            return PartialView("~/Views/Home/_Online.cshtml", result);
         }
 
         [HttpGet]

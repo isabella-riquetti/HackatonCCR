@@ -18,5 +18,12 @@ namespace HackathonCCR.MVC.Controllers
             var result = _categoryService.GetCategorySelectList();
             return Json(result, new JsonSerializerSettings());
         }
+
+        [HttpGet]
+        public IActionResult Search()
+        {
+            var result = _categoryService.GetCategorySelectList();
+            return View(result);
+        }
     }
 }

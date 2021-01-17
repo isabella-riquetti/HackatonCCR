@@ -1,0 +1,93 @@
+﻿@model List<SelectListItem>
+@{ 
+    ViewData["Title"] = "D.Grau - Busca";
+}
+
+<link href="~/lib/select2/select2.min.css" rel="stylesheet" />
+
+<div class="search-category col-md-12">
+    <h1>
+        <img src="~/img/pesquisar-icon.png" />
+        <span>Pesquisar</span>
+    </h1>
+    @Html.DropDownList("CategoryId", Model, "Selecione o curso")
+</div>
+
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/select2/select2.min.js"></script>
+<script>
+    $("#CategoryId").select2({
+        width: '100%'
+    });
+
+</script>
+<style>
+    .search-category h1 {  
+        margin-bottom: 30px;
+    }
+    .search-category h1 span {
+        margin-left: 20px;
+        padding-top: 5px;
+    }
+
+    .select2-container--default .select2-selection--single {
+        height: 70px;
+        display: block;
+        margin: 0 auto;
+        background-color: #EEEEEE;
+        border: none;
+        border-radius: 20px;
+        padding: 30px;
+        padding-top: 23px;
+        font-size: 18px;
+        padding-left: 70px;
+        background: #EEEEEE url(../../img/icon-curso.png) no-repeat scroll 21px 46%;
+        background-size: 31px;
+    }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            text-align: left;
+            padding-left: 0;
+            padding-right: 0;
+            color: #757575;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            background-color: #8960ff;
+            height: 70px;
+            width: 70px;
+        }
+
+            .select2-container--default .select2-selection--single .select2-selection__arrow b {
+                border-color: white transparent transparent transparent;
+                border-width: 10px;
+                left: 41%;
+            }
+
+    .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+        border-color: transparent transparent white transparent;
+        border-width: 10px;
+        top: 33%;
+        left: 43%;
+    }
+
+    .select2-container--open .select2-dropdown--below {
+        background: #EEEEEE;
+        border: 0;
+        padding: 0 10px;
+    }
+
+    .select2-container--default .select2-search--dropdown .select2-search__field {
+        background: #f5f5f5;
+    }
+
+    .select2-results__options {
+        font-size: 1.2em;
+    }
+
+    .row.user-intro h2 {
+        visibility: hidden;
+    }
+</style>
