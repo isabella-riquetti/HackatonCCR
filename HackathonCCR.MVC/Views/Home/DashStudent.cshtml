@@ -1,5 +1,134 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<HackathonCCR.MVC.Models.Schedule.UserSchedule>
 @{
+    ViewData["Title"] = "Início - Mentor";
 }
+<link href="~/css/layout/aluno-logado.css" rel="stylesheet" />
+<link href="~/lib/chart/chart.css" rel="stylesheet" />
+<link href="~/lib/calendar/css/vanilla-calendar.css" rel="stylesheet" />
+
+<section class="agenda-mentoria container col-md-7">
+    <div class="header-agenda col-md-12">
+        <img src="~/img/icon-agenda.png" alt="">
+        <h3>Mentorias agendadas</h3>
+        <a href="#"><img class="plus" src="~/img/icon-plus.png" alt=""></a>
+    </div>
+
+    <div class="lista-mentores">
+        @foreach (var item in Model)
+        {
+            <div class="row mentoria">
+                <div class="col-md-11">
+                    <div style="float: left" class="mask">
+                        <img src="data:image/png;base64,@item.PartnerPicture" class="partner-picture">
+                    </div>
+                    <div class="info-mentor">
+                        <h1>@item.PartnerName</h1>
+                        <span class="course">@item.Course</span>
+                        <span class="time" style="margin-left: 20px;">@item.ScheduleTime</span>
+                    </div>
+                </div>
+
+                <div class="col-md-1 agendamento data">
+                    <span class="day">@item.ScheduleDateDay</span><br />
+                    <span class="month">@item.ScheduleDateMonth</span><br />
+                </div>
+            </div>
+        }
+
+    </div>
+</section>
+<section class="container col-md-5">
+    <div class="calendar-container">
+        <div id="myCalendar" class="vanilla-calendar"></div>
+        <div id="available-courses">
+
+        </div>
+    </div>
+</section>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/calendar/js/vanilla-calendar.js"></script>
+<script>
+    var selectedDate = new Date();
+    let myCalendar = new VanillaCalendar({
+        selector: "#myCalendar",
+        pastDates: false,
+        onSelect: (data, elem) => { updateSelectedDate(data.date); },
+        date: new Date(),
+        todaysDate: new Date()
+    })
+
+    function updateSelectedDate(date) {
+        if (date != undefined)
+            selectedDate = new Date(date);
+        $.ajax({
+            url: '@Url.Action("GetDateAvailableSchedules", "Schedule")',
+            type: 'GET',
+            cache: false,
+            data: { date: dataFormatada() }
+        }).done(function (result) {
+            $('#available-courses').html(result);
+        });
+    }
+
+    $(document).ready(function () {
+        $(".vanilla-calendar-date--today").addClass("vanilla-calendar-date--selected");
+        updateSelectedDate();
+    })
+
+    function dataFormatada() {
+        var data = selectedDate,
+            dia = data.getDate().toString(),
+            diaF = (dia.length == 1) ? '0' + dia : dia,
+            mes = (data.getMonth() + 1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+            mesF = (mes.length == 1) ? '0' + mes : mes,
+            anoF = data.getFullYear();
+        return anoF + "-" + mesF + "-" + diaF;
+    }
+</script>
+<style>
+    .mentoria {
+        padding: 20px 0;
+    }
+
+    .times {
+        color: #1f93d4;
+    }
+
+    .info-mentor {
+        margin-left: 90px;
+    }
+
+    .agendamento {
+        padding-left: 0px;
+    }
+
+    .month {
+        color: #878686;
+    }
+
+    .day {
+        font-size: 25px;
+        color: #878686;
+    }
+
+    .time {
+        color: #1F93D4;
+    }
+
+    .mentoria .agendamento {
+        padding-top: 0;
+    }
+
+    .mask {
+        width: 70px;
+        height: 70px;
+    }
+
+    .calendar-container {
+        background: #f0f0f0;
+        padding: 30px;
+        border-radius: 40px;
+        position: relative;
+        margin-bottom: 60px;
+    }
+</style>
