@@ -33,10 +33,10 @@ namespace HackathonCCR.MVC.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetCategoryAvailableSchedules(Guid categoryId)
+        public PartialViewResult GetCategoryAvailableSchedules(Guid categoryId)
         {
-            var result = _scheduleService.GetUserSchedules();
-            return Json(result, new JsonSerializerSettings());
+            var result = _scheduleService.GetCategoryAvailableSchedules(categoryId);
+            return PartialView("~/Views/Home/_Schedules.cshtml", result);
         }
 
         [HttpGet]
@@ -47,10 +47,10 @@ namespace HackathonCCR.MVC.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetCurrentAvailableSchedules()
+        public PartialViewResult GetCurrentAvailableSchedules(Guid? categoryId = null)
         {
-            var result = _scheduleService.GetCurrentAvailableSchedules();
-            return Json(result, new JsonSerializerSettings());
+            var result = _scheduleService.GetCurrentAvailableSchedules(categoryId);
+            return PartialView("~/Views/Home/_Online.cshtml", result);
         }
 
         [HttpGet]

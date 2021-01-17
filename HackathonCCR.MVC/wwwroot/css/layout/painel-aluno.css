@@ -189,51 +189,54 @@
     bottom: 480px;
 }
 
-
-    .mentores-online h2 {
-        position: absolute;
-        top: 38px;
-        left: 90px;
-        color: #767676;
-        font-weight: 400;
-        font-size: 24px;
-    }
-
 .mentor-modelo {
     background: white;
     text-align: center;
     border: none;
     border-radius: 15px;
     margin-top: 40px;
+    margin-right: 10px;
 }
 
-    .mentor-modelo img {
-        margin: 0 auto;
-        position: relative;
-        top: -25px;
-    }
+.mentores-online h2 {
+    position: absolute;
+    top: 38px;
+    left: 90px;
+    color: #767676;
+    font-weight: 400;
+    font-size: 24px;
+}
 
-    .mentor-modelo p {
-        color: #A0A0A0;
-        font-weight: 300;
-    }
 
-    .mentor-modelo .nome {
-        font-weight: 500;
-        color: #3C3C3C;
-        font-size: 18px;
-    }
+.mentor-modelo .mask {
+    margin: 0 auto;
+    position: relative;
+    top: -30px;
+}
+
+.mentor-modelo p {
+    color: #A0A0A0;
+    font-weight: 300;
+}
+
+.mentor-modelo .nome {
+    font-weight: 500;
+    color: #3C3C3C;
+    font-size: 18px;
+    display: block;
+    margin-top: -25px;
+}
 
 .model-calendar {
     margin-left: 80px;
 }
 
-    .titulo-sessao {
-        color: #767676;
-        font-weight: 400;
-        font-size: 24px;
-        margin-top: 20px;
-    }
+.titulo-sessao {
+    color: #767676;
+    font-weight: 400;
+    font-size: 24px;
+    margin-top: 20px;
+}
 
 .modelo-sessao {
     padding: 10px;

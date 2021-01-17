@@ -47,21 +47,36 @@ namespace HackathonCCR.MVC.Services
             return schedules.ToList();
         }
 
-        public List<Schedule> GetCategoryAvailableSchedules(Guid categoryId)
+        public List<UserSchedule> GetCategoryAvailableSchedules(Guid categoryId)
         {
-            var schedules = _unitOfWork.RepositoryBase.GetIQueryable<Schedule>(s => s.CategoryId == categoryId && s.Status == HackathonCCR.EDM.Enums.Schedule.Status.Available);
-            return schedules.ToList();
+            var now = DateTime.Now.Brasilia();
+            var userId = _authenticationService.GetAuthenticatedUserId();
+            var schedulesDb = _unitOfWork.RepositoryBase
+                .GetIQueryable<Schedule>(s =>
+                s.CategoryId == categoryId
+                && s.ScheduleAt > now
+                && s.Status == EDM.Enums.Schedule.Status.Available)
+                .OrderBy(s => s.ScheduleAt)
+                .Take(10)
+                .ToList();
+            var schedules = ConvertSchedules(schedulesDb, userId);
+            return schedules;
         }
 
         public SchedulesByDate GetDateAvailableSchedules(DateTime date)
         {
             var userId = _authenticationService.GetAuthenticatedUserId();
             var dateStart = date.Date;
-            var dateEnd = dateStart.AddDays(1);
+            if (dateStart == DateTime.Now.Brasilia().Date)
+                dateStart = DateTime.Now.Brasilia();
+            var dateEnd = dateStart.Date.AddDays(1);
             var schedulesDb = _unitOfWork.RepositoryBase
-                .Get<Schedule>(s => s.ScheduleAt >= dateStart
+                .GetIQueryable<Schedule>(s => s.ScheduleAt >= dateStart
                 && s.ScheduleAt < dateEnd
-                && s.Status == HackathonCCR.EDM.Enums.Schedule.Status.Available);
+                && s.Status == HackathonCCR.EDM.Enums.Schedule.Status.Available)
+                .OrderBy(s => s.ScheduleAt)
+                .Take(10)
+                .ToList();
             var schedules = ConvertSchedules(schedulesDb, userId);
             return new SchedulesByDate()
             {
@@ -70,15 +85,23 @@ namespace HackathonCCR.MVC.Services
             };
         }
 
-        public List<Schedule> GetCurrentAvailableSchedules()
+        public List<UserSchedule> GetCurrentAvailableSchedules(Guid? categoryId)
         {
-            var biggerThan = DateTime.Now.Brasilia();
-            var smallerThan = biggerThan.AddMinutes(30);
-            var schedules = _unitOfWork.RepositoryBase
-                .GetIQueryable<Schedule>(s => s.ScheduleAt >= biggerThan
+            var userId = _authenticationService.GetAuthenticatedUserId();
+            var biggerThan = DateTime.Now.Brasilia().AddMinutes(-30);
+            var smallerThan = biggerThan.AddMinutes(60);
+            var schedulesDb = _unitOfWork.RepositoryBase
+                .GetIQueryable<Schedule>(s =>
+                (categoryId == null || s.CategoryId == categoryId)
+                && s.ScheduleAt >= biggerThan
                 && s.ScheduleAt <= smallerThan
-                && s.Status == HackathonCCR.EDM.Enums.Schedule.Status.Available);
-            return schedules.ToList();
+                && s.Status == HackathonCCR.EDM.Enums.Schedule.Status.Available)
+                .GroupBy(s => s.MentorId)
+                .Select(s => s.FirstOrDefault())
+                .Take(10)
+                .ToList();
+            var schedules = ConvertSchedules(schedulesDb, userId);
+            return schedules;
         }
 
         public int CreateAgenda(DateTime start, DateTime end, Guid categoryId)
@@ -150,8 +173,8 @@ namespace HackathonCCR.MVC.Services
 
         private List<UserSchedule> ConvertSchedules(List<Schedule> schedulesDb, Guid userId)
         {
-            var schedules = new List<UserSchedule>(); 
-            
+            var schedules = new List<UserSchedule>();
+
             foreach (var scheduleDb in schedulesDb)
             {
                 var courseName = scheduleDb.Category.Description;
@@ -162,6 +185,7 @@ namespace HackathonCCR.MVC.Services
                 var dateDay = scheduleDb.ScheduleAt.ToString("dd");
                 var partner = scheduleDb.MentorId == userId ? scheduleDb.Discover : scheduleDb.Mentor;
                 var partnerName = partner.Name;
+                var partnerFirstName = partner.Name.Split(' ')[0];
                 var partnerPicture = partner.Picture != null && partner.Picture.Length > 0 ? Convert.ToBase64String(partner.Picture) : DefaultImage;
 
                 var schedule = new UserSchedule()
@@ -169,6 +193,7 @@ namespace HackathonCCR.MVC.Services
                     Course = courseName,
                     CourseColor = courseColor ?? "#E95FF5",
                     PartnerName = partnerName,
+                    PartnerFirstName = partnerFirstName,
                     PartnerPicture = partnerPicture,
                     ScheduleDate = date,
                     ScheduleDateMonth = dateMonth,

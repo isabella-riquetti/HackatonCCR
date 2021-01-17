@@ -14,7 +14,10 @@
 }
 
 .footer {
-  margin-top: 40px;
+    margin-top: 40px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
 }
 
 .login form input.btn {
