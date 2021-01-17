@@ -20,3 +20,33 @@
 .login form input.btn {
     margin-bottom: 20px;
 }
+
+.login form label.upload-picture {
+    display: block;
+    height: 70px;
+    display: block;
+    margin: 0 auto;
+    width: 400px;
+    border: none;
+    border-radius: 20px;
+    padding: 30px;
+    padding-top: 23px;
+    font-size: 18px;
+    padding-left: 70px;
+    text-align: left;
+    color: #757575;
+    background: #EEEEEE url(../../img/icon-picture.png) no-repeat scroll 17px 45%;
+    background-size: 40px;
+}
+
+.mask {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.uploaded-picture {
+    max-width: 100%;
+}

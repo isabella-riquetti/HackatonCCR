@@ -40,10 +40,10 @@ namespace HackathonCCR.MVC.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetDateAvailableSchedules(DateTime date)
+        public PartialViewResult GetDateAvailableSchedules(DateTime date)
         {
             var result = _scheduleService.GetDateAvailableSchedules(date);
-            return Json(result, new JsonSerializerSettings());
+            return PartialView("~/Views/Home/_AvailableSchedules.cshtml", result);
         }
 
         [HttpGet]

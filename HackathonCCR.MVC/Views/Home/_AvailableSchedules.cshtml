@@ -1,0 +1,54 @@
+﻿@model HackathonCCR.MVC.Models.Schedule.SchedulesByDate
+<link href="~/css/layout/painel-aluno.css" rel="stylesheet" />
+<h2 class="titulo-sessao">Sessões - @Model.Date</h2>
+
+@foreach (var item in Model.Schedules)
+{
+    <div class="modelo-agenda modelo-sessao purple mentoria" data-color="@item.CourseColor">
+        <div style="float: left;margin-left: 8px" class="mask">
+            <img src="data:image/png;base64,@item.PartnerPicture" class="partner-picture">
+        </div>
+        <div class="info-mentor">
+            <h1>@item.Course</h1>
+            <span class="course">@item.PartnerName</span><br />
+            <span class="time">@item.ScheduleTime</span>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $(".modelo-agenda").each(function (index) {
+            var color = $(this).data('color');
+            $(this).css('border-color', color);
+        })
+    });
+</script>
+
+<style>
+    .modelo-agenda span {
+        font-size: 0.9rem;
+    }
+    .modelo-agenda .mask {
+        width: 55px;
+        height: 55px;
+    }
+
+    .modelo-agenda .info-mentor {
+        margin-left: 80px;
+        padding-top: 0;
+    }
+
+    .modelo-agenda .info-mentor h1 {
+        font-size: 1.1em;
+        margin-bottom: 0px;
+    }
+
+    .modelo-agenda .info-mentor {
+        line-height: 1em;
+    }
+
+    .modelo-agenda.mentoria {
+        padding: 10px 0;
+    }
+</style>

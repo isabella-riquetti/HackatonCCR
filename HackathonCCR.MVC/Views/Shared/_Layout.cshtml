@@ -22,7 +22,7 @@
 <body>
     <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
         <div class="scrollbar-inner">
-            <div class="sidenav-header  align-items-center">
+            <div class="sidenav-header align-items-center">
                 <a class="navbar-brand" href="@Url.Action("Principal", "Inicio")">
                     <img src="~/img/logo-2.png" class="navbar-brand-img" />
                 </a>
@@ -84,7 +84,9 @@
                 <p>@User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value</p>
             </div>
             <div class="col-md-1 user-icon">
-                <img src="~/img/photo-user.png" alt="" id="user-picture" class="user-picture" width="65">
+                <div class="mask mask-header">
+                    <img src="~/img/photo-user.png" alt="" id="user-picture" class="user-picture">
+                </div>
                 <ul class="navbar-nav align-items-center ml-md-auto ">
                     <li class="nav-item d-xl-none">
                         <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">

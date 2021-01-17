@@ -36,7 +36,7 @@
             <a href="@Url.Action("Index","Home")">
                 <img src="~/img/logo.png" id="logo" />
             </a>
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("RegisterDiscover", "Authentication", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <h1>Crie sua conta</h1>
                 <div class="form-group">
@@ -69,22 +69,25 @@
                     @Html.ValidationMessageFor(m => m.Password)
                 </div>
 
-                @*var<div class="form-group">
-                @Html.LabelFor(m => m.Picture)
-                <br /><input type="file" name="Picture" id="Picture" accept=".png" class="img" />
-                @Html.ValidationMessageFor(m => m.Picture)
-            </div>
 
-             display = "none";
-            if (Model?.Picture != null)
-            {
-                display = "block";
-            }
+                <div class="form-group">
+                    @Html.Label("Picture", "Selecione uma foto", new { @class = "upload-picture" })
+                    <br /><input type="file" name="Picture" id="Picture" accept=".png,.jpeg,.jpg" class="img" style="visibility: hidden;" />
+                    @Html.ValidationMessageFor(m => m.Picture)
 
-            <div class="form-group" style="display: @display" id="displayImage">
-                @Html.Label("Foto carregada")
-                <img src="data:image/png;base64,@base64String" alt="" id="picture-img" /><br />
-            </div>*@
+                    @{
+                        var display = "none";
+                        if (Model?.Picture != null)
+                        {
+                            display = "block";
+                        }
+
+                        <div class="mask" style="display: @display" id="displayImage">
+                            @Html.Label("Foto carregada")
+                            <img src="data:image/png;base64,@base64String" alt="" class="uploaded-picture" id="picture-img" /><br />
+                        </div>
+                    }
+                </div>
                 @Html.HiddenFor(m => m.Type)
                 <input class="btn" style="margin-top:39px;" type="submit" name="Cadastrar" value="Cadastrar" />
                 <p>Já possui conta? @Html.ActionLink("Entrar", "Login", "Authentication")</p>
@@ -104,23 +107,22 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script>
+        $(document).read(function () {
+            localStorage.removeItem('userPicture');
+        });
 
         $('#Picture').change(function () {
             var input = this;
             var url = $(this).val();
             var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-            if (input.files && input.files[0] && ext == "png") {
+            if (input.files && input.files[0] && (ext == "png" || ext == "jpg" || ext == "jpeg")) {
                 var reader = new FileReader();
-                debugger;
                 reader.onload = function (e) {
                     $('#picture-img').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(input.files[0]);
                 $('#displayImage').show();
             }
-            //else {
-            //    $('#img').attr('src', '/assets/no_preview.png');
-            //}
         });
 
     </script>
