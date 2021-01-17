@@ -1,59 +1,135 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using System.Security.Claims
+@{
+    string focusOn = null;
+}
+<!DOCTYPE html>
+<html>
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - HackathonCCR.MVC</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"]</title>
+    <link rel="icon" href="~/img/favicon.ico" type="image/png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="~/lib/fontawesome/css/all.css" rel="stylesheet" />
+    <link href="~/css/argon.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">HackathonCCR.MVC</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="RegisterDiscover">Cadastro Aluno</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="RegisterMentor">Cadastro Mentor</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="LogOff">Sair</a>
-                        </li>
-                    </ul>
+    <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+        <div class="scrollbar-inner">
+            <div class="sidenav-header  align-items-center">
+                <a class="navbar-brand" href="@Url.Action("Principal", "Inicio")">
+                    <img src="~/img/logo-2.png" class="navbar-brand-img" />
+                </a>
+            </div>
+            <div class="navbar-inner">
+                <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+
+                    @if (User.IsInRole("1"))
+                    {
+                        <ul class="navbar-nav mb-md-3">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="@Url.Action("Principal", "Inicio")">
+                                    <img src="~/img/icon-home.png" width="25" />
+                                    <span class="nav-link-text">Início</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Principal", "Produtos")">
+                                    <img src="~/img/star-icon.png" width="25" />
+                                    <span class="nav-link-text">Cetificados</span>
+                                </a>
+                            </li>
+                        </ul>
+                    }
+                    else if (User.IsInRole("0"))
+                    {
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="@Url.Action("Principal", "Inicio")">
+                                    <img src="~/img/icon-home.png" width="25" />
+                                    <span class="nav-link-text">Início</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Principal", "Produtos")">
+                                    <img src="~/img/pesquisar-icon.png" width="25" />
+                                    <span class="nav-link-text">Pesquisar</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Principal", "Produtos")">
+                                    <img src="~/img/icon-conquista.png" width="25" />
+                                    <span class="nav-link-text">Conquistas</span>
+                                </a>
+                            </li>
+                        </ul>
+                    }
                 </div>
             </div>
+        </div>
+    </nav>
+    <div class="main-content" id="panel" style="position: relative">
+        <nav class="row user-intro">
+            <div class="col-md-4">
+                <h2>Olá, @User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName).Value<br>Como vai?</h2>
+            </div>
+            <div class="info-usuario col-md-7">
+                <h1>@User.Identity.Name</h1>
+                <p>@User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value</p>
+            </div>
+            <div class="col-md-1 user-icon">
+                <img src="~/img/photo-user.png" alt="" width="65">
+                <ul class="navbar-nav align-items-center ml-md-auto ">
+                    <li class="nav-item d-xl-none">
+                        <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
+                            <div class="sidenav-toggler-inner">
+                                <i class="sidenav-toggler-line"></i>
+                                <i class="sidenav-toggler-line"></i>
+                                <i class="sidenav-toggler-line"></i>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item d-sm-none">
+                        <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
+                            <i class="ni ni-zoom-split-in"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        <div class="container-fluid mt--6">
+            <div class="row page">
+                @RenderBody()
+            </div>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - HackathonCCR.MVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Core -->
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/argon.js"></script>
+    @*<script src="~/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/vendor/js-cookie/js.cookie.js"></script>
+        <script src="~/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+        <script src="~/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>*@
+
+    <!-- Argon JS -->
+    <script src="~/js/argon.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#notification").toast('show');
+            if ('@focusOn' != '') {
+                $("@focusOn").focus();
+            }
+        });
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

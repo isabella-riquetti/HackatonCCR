@@ -18,9 +18,11 @@
 <body>
     <section class="login container">
         <div class="login-components">
+            <a href="@Url.Action("Index","Home")">
+                <img src="~/img/logo.png" id="logo" />
+            </a>
             @using (Html.BeginForm())
             {
-                <img src="~/img/logo.png" id="logo"/>
                 <h1>Faça seu login</h1>
                 <div class="form-group">
                     @Html.EditorFor(m => m.Email, new { htmlAttributes = new { placeholder = "Email" } })

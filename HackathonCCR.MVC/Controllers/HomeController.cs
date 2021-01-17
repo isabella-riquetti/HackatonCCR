@@ -17,11 +17,29 @@ namespace HackathonCCR.MVC.Controllers
 
         public IActionResult Index()
         {
+            if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Dash();
+            }
             var aux = _unitOfWork.RepositoryBase.Get<User>();
             return View();
         }
 
         public IActionResult Dash()
+        {
+            if (User.IsInRole("0"))
+                return DashStudent();
+            else if (User.IsInRole("1"))
+                return DashMentor();
+            return RedirectToAction("LogOff", "Authentication");
+        }
+
+        public IActionResult DashMentor()
+        {
+            return View();
+        }
+
+        public IActionResult DashStudent()
         {
             return View();
         }

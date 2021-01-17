@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Início - Mentor";
+}
+<link href="~/css/layout/aluno-logado.css" rel="stylesheet" />
+
+<section class="agenda-mentoria container">
+    <div class="header-agenda col-md-12">
+        <img src="~/img/icon-agenda.png" alt="">
+        <h3>Mentorias agendadas</h3>
+        <a href="#"><img class="plus" src="~/img/icon-plus.png" alt=""></a>
+    </div>
+
+    <div class="lista-mentores">
+        @for (int i = 0; i < 3; i++) //Pendente model
+        {
+            <div class="row mentoria">
+                <div class="col-md-6">
+                    <div style="float: left">
+                        <img src="~/img/photo-user.png" alt="">
+                    </div>
+                    <div class="info-mentor">
+                        <h1>Bruno Pereira</h1>
+                        <span class="course">Designer</span>
+                    </div>
+                </div>
+                <div class="col-md-3 agendamento hora">
+                    <h3 class="cabecalho">Horário</h3>
+                    <span class="dados">09:00h - 11:00h</span>
+                </div>
+
+                <div class="col-md-3 agendamento data">
+                    <h3 class="cabecalho">Data</h3>
+                    <span class="dados">30/01/2021</span>
+                </div>
+            </div>
+        }
+
+    </div>
+</section>
+
+<section class="container">
+    <div class="horas-complementares">
+        <div class="header-horas">
+            <img src="~/img/icon-relogio.png" alt="">
+            <h2>Horas complementares</h2>
+        </div>
+
+        <div class="dados-horas">
+            <img src="~/img/retangulo-roxo.png" alt="">
+            <p class="roxo">Horas obtidas: 150h</p>
+            <img src="~/img/retangulo-cinza.png" alt="">
+            <p class="cinza">Horas restantes: 0h</p>
+        </div>
+    </div>
+
+</section>

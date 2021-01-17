@@ -1,10 +1,10 @@
-﻿using HackathonCCR.MVC.Models;
+﻿using HackathonCCR.EDM.Models;
+using HackathonCCR.MVC.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Security.Claims;
 
 namespace HackathonCCR.MVC.Controllers
@@ -24,11 +24,11 @@ namespace HackathonCCR.MVC.Controllers
 
 
         [HttpGet]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login()
         {
             if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
             {
-                return View(GetRedirectUrl(returnUrl));
+                return LogOff();
             }
 
             return View("Login", null);
@@ -52,7 +52,7 @@ namespace HackathonCCR.MVC.Controllers
                 if (confirmLogin)
                 {
                     Authenticate(user);
-                    return RedirectToAction("Dash", "Home");
+                    return UserDash(user);
                 }
                 else
                 {
@@ -67,8 +67,10 @@ namespace HackathonCCR.MVC.Controllers
         {
             var claims = new List<Claim>();
 
+            claims.Add(new Claim(ClaimTypes.Role, ((int)user.Type).ToString()));
             claims.Add(new Claim(ClaimTypes.Name, user.Name));
             claims.Add(new Claim(ClaimTypes.Email, user.Email));
+            claims.Add(new Claim(ClaimTypes.GivenName, user.Name.Split(' ')[0]));
             claims.Add(new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()));
 
             var authProperties = new AuthenticationProperties
@@ -76,7 +78,7 @@ namespace HackathonCCR.MVC.Controllers
                 AllowRefresh = true,
                 IsPersistent = true,
                 IssuedUtc = DateTime.UtcNow,
-                RedirectUri = "/Home/Dash"
+                RedirectUri = "/Home/Index"
             };
 
             var identity = new ClaimsIdentity(
@@ -93,7 +95,7 @@ namespace HackathonCCR.MVC.Controllers
         {
             if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Dash", "Home");
+                return LogOff();
             }
 
             return View();
@@ -116,7 +118,7 @@ namespace HackathonCCR.MVC.Controllers
 
                 Authenticate(user);
 
-                return RedirectToAction("Dash", "Home");
+                return UserDash(user);
             }
 
             return View(model);
@@ -127,7 +129,7 @@ namespace HackathonCCR.MVC.Controllers
         {
             if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Dash", "Home");
+                return LogOff();
             }
 
             ViewBag.Graduations = _categoryService.GetCategorySelectList();
@@ -154,7 +156,7 @@ namespace HackathonCCR.MVC.Controllers
 
                 Authenticate(user);
 
-                return RedirectToAction("Dash", "Home");
+                return UserDash(user);
             }
 
             ViewBag.Graduations = _categoryService.GetCategorySelectList();
@@ -164,7 +166,7 @@ namespace HackathonCCR.MVC.Controllers
         public string GetRedirectUrl(string returnUrl)
         {
             if (string.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl))
-                return Url.Action("Portal", "Home");
+                return Url.Action("Index", "Home");
 
             return returnUrl;
         }
@@ -174,6 +176,20 @@ namespace HackathonCCR.MVC.Controllers
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult UserDash(User user)
+        {
+            if (user?.Type == EDM.Enums.User.Type.Discover)
+            {
+                return RedirectToAction("DashStudent", "Home");
+            }
+            else if (user?.Type == EDM.Enums.User.Type.Mentor)
+            {
+                return RedirectToAction("DashMentor", "Home");
+            }
+
+            return LogOff();
         }
     }
 }

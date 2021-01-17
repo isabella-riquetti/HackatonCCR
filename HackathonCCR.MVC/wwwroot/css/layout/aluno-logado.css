@@ -1,180 +1,172 @@
 .header-usuario {
-  padding: 60px 0 40px 0;
+    padding: 60px 0 40px 0;
 }
 
-.header-usuario h2 {
-  font-size: 38px;
-  font-weight: 500;
-}
+    .header-usuario h2 {
+        font-size: 38px;
+        font-weight: 500;
+    }
 
 .info-usuario img {
-  display: inline-block;
+    display: inline-block;
 }
 
 .info-usuario {
-  text-align: right;
+    text-align: right;
 }
 
-.info-usuario h1 {
-  font-size: 18px;
-  font-weight: 500;
-}
+    .info-usuario h1 {
+        font-size: 18px;
+        font-weight: 500;
+    }
 
-.info-usuario p {
-  color: #767676;
-  font-weight: 400;
-}
+    .info-usuario p {
+        color: #767676;
+        font-weight: 400;
+    }
 
 .flutuacao {
-  position: relative;
-  left: -120px;
-  top: -80px;
+    position: relative;
+    left: -120px;
+    top: -80px;
 }
 
 .agenda-mentoria {
-  background: #f0f0f0;
-  padding: 30px;
-  border-radius: 40px;
-  position: relative;
-  margin-bottom: 60px;
+    background: #f0f0f0;
+    padding: 30px;
+    border-radius: 40px;
+    position: relative;
+    margin-bottom: 60px;
 }
 
-.agenda-mentoria::before {
-  content: "";
-  display: block;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: #8960ff;
-  position: absolute;
-  right: 40px;
-  top: -35px;
-}
+    .agenda-mentoria::before {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: #8960ff;
+        position: absolute;
+        right: 40px;
+        top: -35px;
+    }
 
 .plus {
-  position: absolute;
-  right: 55px;
-  top: -19px;
-  cursor: pointer;
+    position: absolute;
+    right: 26px;
+    top: -47px;
+    cursor: pointer;
 }
 
 .header-agenda h3 {
-  font-size: 28px;
-  font-weight: 400;
-  color: #767676;
-  position: relative;
-  right: -90px;
-  top: -43px;
+    font-size: 28px;
+    font-weight: 400;
+    color: #767676;
+    position: relative;
+    right: -90px;
+    top: -43px;
 }
 
-.lista-mentores ul li {
-  background: #e1e1e1;
-  border-radius: 10px;
-  padding: 20px;
-  position: relative;
-  border-left: 20px solid #e95ff5;
+.mentoria {
+    background: #e1e1e1;
+    border-radius: 10px;
+    padding: 20px;
+    border-left: 20px solid #e95ff5;
+    margin-bottom: 20px;
 }
+
+    .mentoria h1 {
+        font-size: 1.3em;
+        font-weight: bold;
+        color: #4A4A4A;
+    }
+
+    .mentoria .course {
+        color: #878686;
+    }
+
+    .mentoria .agendamento {
+        text-align: center;
+        padding-top: 20px;
+    }
+        .mentoria .agendamento.data {
+            text-align: right;
+        }
+        .mentoria .agendamento.hora {
+            text-align: left;
+        }
+
+    .mentoria .agendamento h3.cabecalho {
+        color: #4A4A4A;
+        font-size: 1.3em;
+        font-weight: bold;
+    }
+
+        .mentoria .agendamento span.dados {
+            color: #1f93d4;
+            font-weight: 400;
+        }
 
 .info-mentor {
-  position: absolute;
-  top: 40px;
-  left: 130px;
+    padding-top: 20px;
+    margin-left: 120px;
 }
 
-.info-mentor h1 {
-  margin-bottom: 10px;
-}
+    .info-mentor h1 {
+        margin-bottom: 10px;
+    }
 
-.mentor-example {
-  margin-bottom: 20px;
-}
 
-.horario {
-  text-align: center;
-  position: absolute;
-  top: 40px;
-  left: 500px;
-}
-
-.horario h3 {
-  position: relative;
-  right: 22px;
-  margin-bottom: 10px;
-  color: #4a4a4a;
-  font-weight: 700;
-}
-
-.horario p {
-  color: #1f93d4;
-  font-weight: 400;
-}
-
-.data {
-  position: absolute;
-  top: 35px;
-  right: 40px;
-}
-
-.data h3 {
-  margin-bottom: 10px;
-  color: #4a4a4a;
-  font-weight: 700;
-}
-
-.data p {
-  font-weight: 400;
-  color: #878686;
-}
 
 .horas-complementares {
-  background: #f0f0f0;
-  max-width: 727px;
-  padding: 60px 60px 120px 60px;
-  border-radius: 40px;
-  position: relative;
+    background: #f0f0f0;
+    max-width: 727px;
+    padding: 60px 60px 120px 60px;
+    border-radius: 40px;
+    position: relative;
 }
 
 .header-horas h2 {
-  position: absolute;
-  top: 70px;
-  left: 140px;
-  font-size: 28px;
-  color: #767676;
-  font-weight: 400;
+    position: absolute;
+    top: 70px;
+    left: 140px;
+    font-size: 28px;
+    color: #767676;
+    font-weight: 400;
 }
 
-.header-horas h2::after {
-  content: "";
-  font-size: 50px;
-  text-align: center;
-  display: block;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  position: absolute;
-  right: -200px;
-  top: 60px;
-  border: 30px solid #8960ff;
-}
+    .header-horas h2::after {
+        content: "";
+        font-size: 50px;
+        text-align: center;
+        display: block;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        position: absolute;
+        right: -200px;
+        top: 60px;
+        border: 30px solid #8960ff;
+    }
 
 .dados-horas {
-  margin-top: 60px;
+    margin-top: 60px;
 }
 
-.dados-horas p {
-  font-weight: 500;
-}
+    .dados-horas p {
+        font-weight: 500;
+    }
 
-.dados-horas p {
-  position: relative;
-  left: 80px;
-  top: -25px;
-}
+    .dados-horas p {
+        position: relative;
+        left: 80px;
+        top: -25px;
+    }
 
 .roxo {
-  color: #8960ff;
+    color: #8960ff;
 }
 
 .cinza {
-  color: #767676;
+    color: #767676;
 }
