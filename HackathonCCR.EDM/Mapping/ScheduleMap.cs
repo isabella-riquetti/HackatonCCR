@@ -12,7 +12,7 @@ namespace HackathonCCR.EDM.Models.Mapping
             Property(t => t.ScheduleId).HasColumnName("ScheduleId");
             Property(t => t.MentorId).HasColumnName("MentorId").IsRequired();
             Property(t => t.DiscoverId).HasColumnName("DiscoverId");
-            Property(t => t.ScheduleAt).HasColumnName("Time").IsRequired();
+            Property(t => t.ScheduleAt).HasColumnName("ScheduleAt").IsRequired();
             Property(t => t.CategoryId).HasColumnName("CategoryId").IsRequired();
             Property(t => t.AppointmentId).HasColumnName("AppointmentId");
             Property(t => t.Status).HasColumnName("Status").IsRequired();

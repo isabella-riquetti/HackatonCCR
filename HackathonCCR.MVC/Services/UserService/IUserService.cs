@@ -10,5 +10,6 @@ namespace HackathonCCR.MVC.Services
         User Get(Guid id);
         User Register(RegisterDiscoverModel model);
         User Register(RegisterMentorModel model);
+        string GetUserPicure();
     }
 }
