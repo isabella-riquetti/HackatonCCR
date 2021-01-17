@@ -142,7 +142,7 @@ namespace HackathonCCR.MVC.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.Graduations = _categoryService.GetCategorySelectList();
-                return View();
+                return View(model);
             }
 
             var user = _userService.Get(model.Email);

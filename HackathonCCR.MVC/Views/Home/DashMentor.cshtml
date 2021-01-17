@@ -3,6 +3,7 @@
     ViewData["Title"] = "Início - Mentor";
 }
 <link href="~/css/layout/aluno-logado.css" rel="stylesheet" />
+<link href="~/lib/chart/chart.css" rel="stylesheet" />
 
 <section class="agenda-mentoria container">
     <div class="header-agenda col-md-12">
@@ -15,8 +16,8 @@
         @foreach (var item in Model)
         {
             <div class="row mentoria">
-                <div class="col-md-6">
-                    <div style="float: left">
+                <div class="col-md-7">
+                    <div style="float: left" class="mask">
                         <img src="data:image/png;base64,@item.PartnerPicture" class="partner-picture">
                     </div>
                     <div class="info-mentor">
@@ -24,7 +25,7 @@
                         <span class="course">@item.Course</span>
                     </div>
                 </div>
-                <div class="col-md-3 agendamento hora">
+                <div class="col-md-2 agendamento hora">
                     <h3 class="cabecalho">Horário</h3>
                     <span class="dados">@item.ScheduleTime</span>
                 </div>
@@ -45,12 +46,15 @@
             <img src="~/img/icon-relogio.png" alt="">
             <h2>Horas complementares</h2>
         </div>
-
-        <div class="dados-horas">
-            <img src="~/img/retangulo-roxo.png" alt="">
-            <p class="roxo">Horas obtidas: 150h</p>
-            <img src="~/img/retangulo-cinza.png" alt="">
-            <p class="cinza">Horas restantes: 0h</p>
+        <div class="row">
+            <div class="dados-horas col-md-6">
+                <img src="~/img/retangulo-roxo.png" alt="">
+                <p class="roxo">Horas obtidas: 150h</p>
+                <img src="~/img/retangulo-cinza.png" alt="">
+                <p class="cinza">Horas restantes: 0h</p>
+            </div>
+            <div class="col-md-6">
+            </div>
         </div>
     </div>
 </section>

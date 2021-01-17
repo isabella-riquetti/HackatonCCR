@@ -147,7 +147,7 @@ img {
 }
 
 .select2-container--default .select2-selection--single {
-    HEIGHT: 70px;
+    height: 70px;
     display: block;
     margin: 0 auto;
     width: 400px;

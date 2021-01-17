@@ -916,6 +916,7 @@
         font-weight: 500;
         padding-right: 1rem;
         padding-left: 1rem;
+        margin-top: 5px;
     }
 
         .navbar-vertical .navbar-nav .nav-link.active {
