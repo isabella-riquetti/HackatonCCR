@@ -1,0 +1,38 @@
+.barra-lateral {
+  position: absolute;
+  width: 333px;
+  height: 1664px;
+  left: 0px;
+  top: 0px;
+  background: #8960ff;
+  padding-top: 400px;
+  
+}
+
+.barra-lateral a  {
+  text-align: center;
+  position: relative;
+  left: 10px;
+  text-decoration: none;
+  margin-bottom: 20px;
+  border-radius: 40px 0px 0px 40px;
+}
+
+.barra-lateral a:hover {
+  background: #fff;
+  transition: background 1s ;
+}
+
+.barra-lateral img {
+  position: relative;
+  bottom: -10px;
+  right: -40px;
+}
+
+.barra-lateral p {
+  position: relative;
+  top: -20px;
+  font-size: 18px;
+  font-weight: 400;
+  color: #000;
+}

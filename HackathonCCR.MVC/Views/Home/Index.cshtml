@@ -1,8 +1,63 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Degrau Certo";
+    Layout = null;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/layout/style.css">
+</head>
+
+<body>
+    <header class="menu">
+        <div class="container">
+            <div class="row">
+                <a class="menu-logo col-md-4" href="@Url.Action("Index", "Home")">
+                    <img src="~/img/logo.png" width="200" />
+                </a>
+                <nav class="menu-nav col-md-8">
+                    <ul>
+                        <li class="btn-white">@Html.ActionLink("Entrar", "Login", "Authentication")</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="container">
+        <div class="row">
+            <div class="intro-2 col-md-6">
+                <h1>Para todos os estudantes, para todas séries!</h1>
+                <p>Nós queremos dar uma experiência de carreira de primeira mão</p>
+                @Html.ActionLink("Estudante", "RegisterDiscover", "Authentication")
+                @Html.ActionLink("Mentor", "RegisterMentor", "Authentication")
+            </div>
+            <div class="intro col-md-6">
+                <img src="~/img/estudante.png" alt="">
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <p class="col-md-4">All rights reserved © Copyright 2021</p>
+
+                <ul class="col-md-8">
+                    <li><img src="~/img/twitter.png" alt=""></li>
+                    <li><img src="~/img/instagram.png" alt=""></li>
+                    <li><img src="~/img/facebook.png" alt=""></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

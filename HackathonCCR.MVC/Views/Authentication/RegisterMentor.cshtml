@@ -2,6 +2,7 @@
 @using System.IO
 
 @{
+    Layout = null;
     var base64String = "#";
 
     if (Model?.Picture != null && Model?.Picture.Length > 0)
@@ -15,83 +16,113 @@
     }
 }
 
-@using (Html.BeginForm("RegisterMentor", "Authentication", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 
-{
-    <h2>Cadastrar como mentor</h2>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Name)
-        @Html.EditorFor(m => m.Name, new { htmlAttributes = new { placeholder = "Digite seu nome completo", @class = "form-control" } })
-        @Html.ValidationMessageFor(m => m.Name)
-    </div>
+<!DOCTYPE html>
+<html lang="pt-br">
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email)
-        @Html.EditorFor(m => m.Email, new { htmlAttributes = new { placeholder = "Digite seu e-mail", @class = "form-control" } })
-        @Html.ValidationMessageFor(m => m.Email)
-    </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/layout/login.css">
+    <link rel="stylesheet" href="~/css/layout/cadastro.css">
+    <title>Front-end Hack</title>
+</head>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.PhoneNumber)
-        @Html.EditorFor(m => m.PhoneNumber, new { htmlAttributes = new { placeholder = "(XX) X XXXX-XXXX", @class = "form-control" } })
-        @Html.ValidationMessageFor(m => m.PhoneNumber)
-    </div>
+<body>
+    <section class="login container">
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.GraduationId)
-        @Html.DropDownListFor(m => m.GraduationId, (List<SelectListItem>)ViewBag.Graduations, "Selecione seu curso de graduação", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.GraduationId)
-    </div>
+        <div class="login-components">
+            @using (Html.BeginForm())
+            {
+                <img src="~/img/logo.png" id="logo" />
+                <h1>Crie sua conta</h1>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Name)
+                    @Html.EditorFor(m => m.Name, new { htmlAttributes = new { placeholder = "Nome", @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.RemainingMissingHours)
-        @Html.EditorFor(m => m.RemainingMissingHours, new { htmlAttributes = new { placeholder = "Digite o número de horas complementares pendentes", @class = "form-control" } })
-        @Html.ValidationMessageFor(m => m.RemainingMissingHours)
-    </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email)
+                    @Html.EditorFor(m => m.Email, new { htmlAttributes = new { placeholder = "E-mail", @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.WorkingField)
-        @Html.EditorFor(m => m.WorkingField, new { htmlAttributes = new { placeholder = "Informe seu cargo caso esteja trabalhando (opcional)", @class = "form-control" } })
-        @Html.ValidationMessageFor(m => m.WorkingField)
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password)
-        @Html.EditorFor(m => m.Password, new { htmlAttributes = new { placeholder = "Digite sua senha", @class = "form-control" } })
-        @Html.ValidationMessageFor(m => m.Password)
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword)
-        @Html.EditorFor(m => m.ConfirmPassword, new { htmlAttributes = new { placeholder = "Repita sua senha", @class = "form-control" } })
-        @Html.ValidationMessageFor(m => m.Password)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Picture)
-        <br /><input type="file" name="Picture" id="Picture" accept=".png" />
-        @Html.ValidationMessageFor(m => m.Picture)
-    </div>
-
-    var display = "none";
-
-    @if (Model?.Picture != null)
-    {
-        display = "block";
-    }
-
-    <div class="form-group" style="display: @display" id="displayImage">
-        @Html.Label("Foto carregada")
-        <img src="data:image/png;base64,@base64String" alt="" id="img" /><br />
-    </div>
-
-    @Html.HiddenFor(m => m.Type)
-
-    <input class="btn btn-lg btn-primary btn-block" style="margin-top:39px;" type="submit" name="Cadastrar" value="Cadastrar" />
-}
+                <div class="form-group">
+                    @Html.LabelFor(m => m.PhoneNumber)
+                    @Html.EditorFor(m => m.PhoneNumber, new { htmlAttributes = new { placeholder = "Celular", @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.PhoneNumber)
+                </div>
 
 
-@section Scripts {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.GraduationId)
+                    @Html.DropDownListFor(m => m.GraduationId, (List<SelectListItem>)ViewBag.Graduations, "Curso", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.GraduationId)
+                </div>
 
+                <div class="form-group">
+                    @Html.LabelFor(m => m.RemainingMissingHours)
+                    @Html.EditorFor(m => m.RemainingMissingHours, new { htmlAttributes = new { placeholder = "Horas complementares pendentes", @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.RemainingMissingHours)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.WorkingField)
+                    @Html.EditorFor(m => m.WorkingField, new { htmlAttributes = new { placeholder = "Cargo (opcional)", @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.WorkingField)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password)
+                    @Html.EditorFor(m => m.Password, new { htmlAttributes = new { placeholder = "Senha", @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ConfirmPassword)
+                    @Html.EditorFor(m => m.ConfirmPassword, new { htmlAttributes = new { placeholder = "Repita sua senha", @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+
+                @*<div class="form-group">
+                        @Html.LabelFor(m => m.Picture)
+                        <br /><input type="file" name="Picture" id="Picture" accept=".png" class="img" />
+                        @Html.ValidationMessageFor(m => m.Picture)
+                    </div>
+
+                    var display = "none";
+                    if (Model?.Picture != null)
+                    {
+                        display = "block";
+                    }
+
+                    <div class="form-group" style="display: @display" id="displayImage">
+                        @Html.Label("Foto carregada")
+                        <img src="data:image/png;base64,@base64String" alt="" id="picture-img" /><br />
+                    </div>*@
+                @Html.HiddenFor(m => m.Type)
+                <input class="btn" type="submit" name="Cadastrar" value="Cadastrar" />
+                <p>Já possui conta? @Html.ActionLink("Entrar", "Login", "Authentication")</p>
+            }
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="grid-4">All rights reserved © Copyright 2021</p>
+            <ul class="grid-8">
+                <li><img src="~/img/twitter.png" alt=""></li>
+                <li><img src="~/img/instagram.png" alt=""></li>
+                <li><img src="~/img/facebook.png" alt=""></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
     <script>
         $('#Picture').change(function () {
             var input = this;
@@ -99,9 +130,9 @@
             var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
             if (input.files && input.files[0] && ext == "png") {
                 var reader = new FileReader();
-
+                debugger;
                 reader.onload = function (e) {
-                    $('#img').attr('src', e.target.result);
+                    $('#picture-img').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(input.files[0]);
                 $('#displayImage').show();
@@ -112,14 +143,16 @@
         });
 
     </script>
-}
 
-<style>
-    img {
-        display: block;
-        max-width: 200px;
-        max-height: 200px;
-        width: auto;
-        height: auto;
-    }
-</style>
+    <style>
+        #picture-img {
+            display: block;
+            max-width: 200px;
+            max-height: 200px;
+            width: auto;
+            height: auto;
+        }
+    </style>
+</body>
+
+</html>

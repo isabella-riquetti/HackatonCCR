@@ -1,0 +1,22 @@
+
+.btn {
+  margin: 40px auto 40px auto;
+}
+
+.login p {
+  color: #797979;
+}
+
+.login p a {
+  text-decoration: none;
+  color: #61AAFF;
+  font-weight: 400;
+}
+
+.footer {
+  margin-top: 40px;
+}
+
+.login form input.btn {
+    margin-bottom: 20px;
+}
