@@ -56,11 +56,14 @@ namespace HackathonCCR.MVC.Services
 
         public User Register(RegisterMentorModel model)
         {
-            byte[] picture;
-            using (var ms = new MemoryStream())
+            byte[] picture = null;
+            if (model.Picture != null)
             {
-                model.Picture.CopyTo(ms);
-                picture = ms.ToArray();
+                using (var ms = new MemoryStream())
+                {
+                    model.Picture.CopyTo(ms);
+                    picture = ms.ToArray();
+                }
             }
             var user = new User()
             {
