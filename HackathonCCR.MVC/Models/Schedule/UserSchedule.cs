@@ -1,7 +1,10 @@
-﻿namespace HackathonCCR.MVC.Models.Schedule
+﻿using System;
+
+namespace HackathonCCR.MVC.Models.Schedule
 {
     public class UserSchedule
     {
+        public Guid ScheduleId { get; set; }
         public string PartnerPicture { get; set; }
         public string PartnerName { get; set; }
         public string PartnerFirstName { get; set; }

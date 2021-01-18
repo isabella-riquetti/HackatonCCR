@@ -71,3 +71,54 @@
 .user-picture {
     max-width: 100%;
 }
+
+.navbar-nav .nav-item:last-of-type {
+    position: absolute;
+    bottom: 0;
+    margin-left: 70px;
+}
+
+.modal-content {
+    border-radius: 2rem;
+}
+
+.modal-body {
+    padding: 30px;
+    min-height: 100px;
+}
+
+    .modal-body h3 {
+        color: #8960FF;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .modal-body strong {
+        color: #767676;
+    }
+
+    .modal-footer {
+        background-color: white;
+        border-radius: 2rem;
+        border-width: 0;
+    }
+
+    .modal-footer button {
+        margin: auto;
+        font-size: 20px;
+        width: 170px;
+    }
+        .modal-footer button.no {
+            background-color: #767676;
+            border: 0;
+            color: white;
+            font-weight: bold;
+            border-radius: 20px;
+        }
+
+        .modal-footer button.yes {
+            background-color: #8960FF;
+            border: 0;
+            color: white;
+            border-radius: 20px;
+        }

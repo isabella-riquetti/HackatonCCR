@@ -14,6 +14,7 @@ namespace HackathonCCR.MVC.Services
         SchedulesByDate GetDateAvailableSchedules(DateTime date);
         List<UserSchedule> GetCurrentAvailableSchedules(Guid? categoryId);
         int CreateAgenda(DateTime start, DateTime end, Guid categoryId);
+        UserSchedule Get(Guid scheduleId);
         void Schedule(Guid scheduleId);
         void CancelSchedule(Guid scheduleId);
     }

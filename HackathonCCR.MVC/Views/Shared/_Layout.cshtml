@@ -45,6 +45,11 @@
                                     <span class="nav-link-text">Cetificados</span>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("LogOff", "Authentication")">
+                                    <span class="nav-link-text">Sair</span>
+                                </a>
+                            </li>
                         </ul>
                     }
                     else if (User.IsInRole("0"))
@@ -68,6 +73,11 @@
                                     <span class="nav-link-text">Conquistas</span>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("LogOff", "Authentication")">
+                                    <span class="nav-link-text">Sair</span>
+                                </a>
+                            </li>
                         </ul>
                     }
                 </div>
@@ -75,7 +85,7 @@
         </div>
     </nav>
     <div class="main-content" id="panel" style="position: relative">
-        <nav class="row user-intro">
+        <nav class="row user-intro" style="margin-right: 0;">
             <div class="col-md-4">
                 <h2>Olá, @User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName).Value<br>Como vai?</h2>
             </div>
@@ -111,6 +121,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- Core -->
     <script src="~/lib/jquery/dist/jquery.js"></script>

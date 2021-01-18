@@ -104,6 +104,15 @@ namespace HackathonCCR.MVC.Services
             return schedules;
         }
 
+        public UserSchedule Get(Guid scheduleId)
+        {
+            var userId = _authenticationService.GetAuthenticatedUserId();
+            var schedulesDb = _unitOfWork.RepositoryBase
+                .Get<Schedule>(s => s.ScheduleId == scheduleId);
+            var schedules = ConvertSchedules(schedulesDb, userId);
+            return schedules.FirstOrDefault();
+        }
+
         public int CreateAgenda(DateTime start, DateTime end, Guid categoryId)
         {
             var userId = _authenticationService.GetAuthenticatedUserId();
@@ -190,6 +199,7 @@ namespace HackathonCCR.MVC.Services
 
                 var schedule = new UserSchedule()
                 {
+                    ScheduleId = scheduleDb.ScheduleId,
                     Course = courseName,
                     CourseColor = courseColor ?? "#E95FF5",
                     PartnerName = partnerName,

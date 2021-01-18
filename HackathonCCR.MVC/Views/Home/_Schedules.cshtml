@@ -1,9 +1,10 @@
 ﻿@model List<HackathonCCR.MVC.Models.Schedule.UserSchedule>
 
-    <link href="~/css/layout/aluno-logado.css" rel="stylesheet" />
-    <div class="lista-mentores">
-        @foreach (var item in Model)
-        {
+<link href="~/css/layout/aluno-logado.css" rel="stylesheet" />
+<div class="lista-mentores">
+    @foreach (var item in Model)
+    {
+        <a data-scheduleId="@item.ScheduleId" data-toggle="modal" data-target="#scheduleModal" onclick="setId('@item.ScheduleId')">
             <div class="row mentoria">
                 <div class="col-md-7">
                     <div style="float: left" class="mask">
@@ -24,6 +25,31 @@
                     <span class="dados">@item.ScheduleDate</span>
                 </div>
             </div>
-        }
+        </a>
+    }
 
-    </div>
+</div>
+
+<script>
+
+    $(document).on('shown.bs.modal', '.modal', function () {
+        var scheduleId = $("#ScheduleId").val();
+        $.ajax({
+            url: '@Url.Action("Get", "Schedule")',
+            type: 'GET',
+            cache: false,
+            data: { scheduleId }
+        }).done(function (data) {
+            $("#mentor").text(data.PartnerName);
+            $("#course").text(data.Course);
+            $("#date").text(data.ScheduleDate);
+            $("#time").text(data.ScheduleTime);
+        }).fail(function (e) {
+            console.log(e);
+        });
+    });
+
+    function setId(id) {
+        $("#ScheduleId").val(id);
+    }
+</script>

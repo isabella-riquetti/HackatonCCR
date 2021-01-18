@@ -5,16 +5,18 @@
 
 @foreach (var item in Model.Schedules)
 {
-    <div class="modelo-agenda modelo-sessao purple mentoria" data-color="@item.CourseColor">
-        <div style="float: left;margin-left: 8px" class="mask">
-            <img src="data:image/png;base64,@item.PartnerPicture" class="partner-picture">
+    <a data-scheduleId="@item.ScheduleId" data-toggle="modal" data-target="#scheduleModal" onclick="setId('@item.ScheduleId')">
+        <div class="modelo-agenda modelo-sessao purple mentoria" data-color="@item.CourseColor">
+            <div style="float: left;margin-left: 8px" class="mask">
+                <img src="data:image/png;base64,@item.PartnerPicture" class="partner-picture">
+            </div>
+            <div class="info-mentor">
+                <h1>@item.Course</h1>
+                <span class="course">@item.PartnerName</span><br />
+                <span class="time">@item.ScheduleTime</span>
+            </div>
         </div>
-        <div class="info-mentor">
-            <h1>@item.Course</h1>
-            <span class="course">@item.PartnerName</span><br />
-            <span class="time">@item.ScheduleTime</span>
-        </div>
-    </div>
+    </a>
 }
 
 <script>
@@ -24,12 +26,30 @@
             $(this).css('border-color', color);
         })
     });
+
+    $(document).on('shown.bs.modal', '.modal', function () {
+        var scheduleId = $("#ScheduleId").val();
+        $.ajax({
+            url: '@Url.Action("Get", "Schedule")',
+            type: 'GET',
+            cache: false,
+            data: { scheduleId }
+        }).done(function (data) {
+            $("#mentor").text(data.PartnerName);
+            $("#course").text(data.Course);
+            $("#date").text(data.ScheduleDate);
+            $("#time").text(data.ScheduleTime);
+        }).fail(function (e) {
+            console.log(e);
+        });
+    });
 </script>
 
 <style>
     .modelo-agenda span {
         font-size: 0.9rem;
     }
+
     .modelo-agenda .mask {
         width: 55px;
         height: 55px;
@@ -40,10 +60,10 @@
         padding-top: 0;
     }
 
-    .modelo-agenda .info-mentor h1 {
-        font-size: 1.1em;
-        margin-bottom: 0px;
-    }
+        .modelo-agenda .info-mentor h1 {
+            font-size: 1.1em;
+            margin-bottom: 0px;
+        }
 
     .modelo-agenda .info-mentor {
         line-height: 1em;

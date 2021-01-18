@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
+using System.Text.Json;
 
 namespace HackathonCCR.MVC.Controllers
 {
@@ -19,17 +20,24 @@ namespace HackathonCCR.MVC.Controllers
         }
 
         [HttpGet]
+        public JsonResult Get(Guid scheduleId)
+        {
+            var result = _scheduleService.Get(scheduleId);
+            return Json(result, new JsonSerializerOptions());
+        }
+
+        [HttpGet]
         public JsonResult GetUserScheduledMentorship()
         {
             var result = _scheduleService.GetUserScheduledMentorship();
-            return Json(result, new JsonSerializerSettings());
+            return Json(result, new JsonSerializerOptions());
         }
 
         [HttpGet]
         public JsonResult GetMentorAvailableSchedules(Guid mentorId)
         {
             var result = _scheduleService.GetUserSchedules();
-            return Json(result, new JsonSerializerSettings());
+            return Json(result, new JsonSerializerOptions());
         }
 
         [HttpGet]
@@ -57,14 +65,14 @@ namespace HackathonCCR.MVC.Controllers
         public JsonResult CreateAgenda(DateTime start, DateTime end, Guid categoryId)
         {
             var result = _scheduleService.CreateAgenda(start, end, categoryId);
-            return Json(result, new JsonSerializerSettings());
+            return Json(result, new JsonSerializerOptions());
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult Schedule(Guid scheduleId)
         {
             _scheduleService.Schedule(scheduleId);
-            return Ok();
+            return RedirectToAction("DashStudent","Home");
         }
 
         [HttpGet]

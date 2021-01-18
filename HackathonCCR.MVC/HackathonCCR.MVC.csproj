@@ -24,6 +24,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\css\layout\" />
     <Folder Include="wwwroot\lib\fontawesome\" />
+    <Folder Include="wwwroot\lib\weekday-picker\" />
   </ItemGroup>
 
   <ItemGroup>

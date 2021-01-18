@@ -3,6 +3,9 @@ using HackathonCCR.EDM.UnitOfWork;
 using HackathonCCR.MVC.Models;
 using HackathonCCR.MVC.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace HackathonCCR.MVC.Controllers
@@ -35,6 +38,18 @@ namespace HackathonCCR.MVC.Controllers
 
         public IActionResult DashMentor()
         {
+            var time = DateTime.Now.Date;
+            var times = new List<SelectListItem>();
+            for (int i = 0; i < 48; i++)
+            {
+                times.Add(new SelectListItem()
+                {
+                    Text = time.ToShortTimeString(),
+                    Value = time.ToShortTimeString()
+                });
+                time.AddMinutes(30);
+            }
+            ViewBag.Times = times;
             var schedules = _scheduleService.GetUserScheduledMentorship();
             return View(schedules);
         }

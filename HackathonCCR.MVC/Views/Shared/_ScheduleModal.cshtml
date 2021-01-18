@@ -1,0 +1,22 @@
+﻿
+<div class="modal" id="scheduleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @using (Html.BeginForm("Schedule", "Schedule", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    @Html.Hidden("ScheduleId", null)
+                    <h3>Deseja confirmar o agendamento desta sessão de mentoria?</h3>
+                    <strong>Instrutor: </strong> <span id="mentor"></span><br />
+                    <strong>Tema: </strong> <span id="course"></span><br />
+                    <strong>Data: </strong> <span id="date"></span><br />
+                    <strong>Hora: </strong> <span id="time"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary yes">Confirmar</button>
+                    <button type="button" class="btn btn-secondary no" data-dismiss="modal">Cancelar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

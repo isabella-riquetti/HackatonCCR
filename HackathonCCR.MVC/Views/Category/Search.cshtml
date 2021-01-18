@@ -28,9 +28,13 @@
     </div>
 </div>
 
+@Html.Partial("~/Views/Shared/_ScheduleModal.cshtml")
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/select2/select2.min.js"></script>
 <script>
+
     $("#CategoryId").select2({
         width: '100%'
     });
@@ -60,6 +64,9 @@
     })
 </script>
 <style>
+    .lista-mentores {
+        padding-top: 20px;
+    }
 
     .mentor-modelo {
         background-color: #F0F0F0;

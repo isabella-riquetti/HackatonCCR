@@ -10,7 +10,7 @@
         <div class="header-agenda col-md-12">
             <img src="~/img/icon-agenda.png" alt="">
             <h3>Mentorias agendadas</h3>
-            <a href="#"><img class="plus" src="~/img/icon-plus.png" alt=""></a>
+            <a href="@Url.Action("Search", "Category")"><img class="plus" src="~/img/icon-plus.png" alt=""></a>
         </div>
 
         <div class="lista-mentores">
@@ -53,6 +53,7 @@
         </div>
     </div>
 </section>
+@Html.Partial("~/Views/Shared/_ScheduleModal.cshtml")
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/calendar/js/vanilla-calendar.js"></script>
 <script>
@@ -105,6 +106,11 @@
             mesF = (mes.length == 1) ? '0' + mes : mes,
             anoF = data.getFullYear();
         return anoF + "-" + mesF + "-" + diaF;
+    }
+
+
+    function setId(id) {
+        $("#ScheduleId").val(id);
     }
 </script>
 <style>
