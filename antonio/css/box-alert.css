@@ -24,13 +24,12 @@
   left: 10px;
 }
 
-.box-alert::after {
+.box-alert .x {
   content: '';
   display: block;
   position: absolute;
   top: -8px;
   right: -1px;
-  background: url("../img/x-icon.png") no-repeat;
   width: 40px;
   height: 40px;
   cursor: pointer;
