@@ -1,6 +1,4 @@
-﻿using HackathonCCR.EDM.Models;
-using HackathonCCR.EDM.UnitOfWork;
-using HackathonCCR.MVC.Models;
+﻿using HackathonCCR.MVC.Models;
 using HackathonCCR.MVC.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -47,7 +45,7 @@ namespace HackathonCCR.MVC.Controllers
                     Text = time.ToShortTimeString(),
                     Value = time.ToShortTimeString()
                 });
-                time.AddMinutes(30);
+                time = time.AddMinutes(30);
             }
             ViewBag.Times = times;
             var schedules = _scheduleService.GetUserScheduledMentorship();

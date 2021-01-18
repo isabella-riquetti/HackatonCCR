@@ -1,6 +1,5 @@
 ﻿using HackathonCCR.MVC.Services;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System;
 using System.Text.Json;
 
@@ -72,7 +71,7 @@ namespace HackathonCCR.MVC.Controllers
         public IActionResult Schedule(Guid scheduleId)
         {
             _scheduleService.Schedule(scheduleId);
-            return RedirectToAction("DashStudent","Home");
+            return RedirectToAction("DashStudent", "Home");
         }
 
         [HttpGet]

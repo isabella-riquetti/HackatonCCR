@@ -5,8 +5,8 @@
 <link href="~/css/layout/aluno-logado.css" rel="stylesheet" />
 <link href="~/lib/chart/chart.css" rel="stylesheet" />
 
-<section class="agenda-mentoria container">
-    <div class="header-agenda col-md-12">
+<section class="agenda-mentoria col-md-12">
+    <div class="header-agenda">
         <img src="~/img/icon-agenda.png" alt="">
         <h3>Mentorias agendadas</h3>
         <a data-toggle="modal" data-target="#newMentorScheduleModal"><img class="plus" src="~/img/icon-plus.png" alt=""></a>
@@ -40,33 +40,32 @@
     </div>
 </section>
 
-<section class="container">
+<section class="col-md-6">
     <div class="horas-complementares">
         <div class="header-horas">
             <img src="~/img/icon-relogio.png" alt="">
             <h2>Horas complementares</h2>
         </div>
-        <div class="row">
-            <div class="dados-horas col-md-6">
-                <img src="~/img/retangulo-roxo.png" alt="">
-                <p class="roxo">Horas obtidas: 150h</p>
-                <img src="~/img/retangulo-cinza.png" alt="">
-                <p class="cinza">Horas restantes: 0h</p>
-            </div>
-            <div class="col-md-6">
-            </div>
-        </div>
+        <div class="dados-horas">
+            <img src="~/img/retangulo-roxo.png" alt="">
+            <p class="roxo">Horas obtidas: 150h</p>
+            <img src="~/img/retangulo-cinza.png" alt="">
+            <p class="cinza">Horas restantes: 0h</p>
+        </div><p class="porcentagem">100%</p>
     </div>
 </section>
 
 <link href="~/lib/select2/select2.min.css" rel="stylesheet" />
 <div class="modal" id="newMentorScheduleModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                Informe o horário de ínciio da sua disponibilidade:
+        <div class="modal-content box-alert">
+            <a data-dismiss="modal">
+                <img class="x" src="~/img/x-icon.png" alt="">
+            </a>
+            <div class="modal-body time-picker">
+                <p>Informe o horário de ínciio da sua disponibilidade:</p>
                 @Html.DropDownList("startTime", (List<SelectListItem>)ViewBag.Times, null, null)
-                Informe o horário de fim da sua disponibilidade:
+                <p>Informe o horário de fim da sua disponibilidade:</p>
                 @Html.DropDownList("endTime", (List<SelectListItem>)ViewBag.Times, null, null)
             </div>
             <div class="modal-footer">
@@ -102,16 +101,50 @@
     })
     $(document).ready(function () {
         $("#startTime").select2({
-            'widht': '100%'
+            'width': '100%'
         });
         $("#endTime").select2({
-            'widht': '100%'
+            'width': '100%'
         });
     });
 </script>
 
 
 <style>
+
+    .modal-content .modal-body {
+        padding: 20px 30px 30px 30px;
+        margin-top: -50px;
+    }
+
+    .box-alert .x {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -8px;
+        right: -1px;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+    }
+    .box-alert::before {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 60px;
+        margin-left: auto;
+        background: #FF6060;
+        border-radius: 50%;
+        position: relative;
+        top: -20px;
+        left: 10px;
+    }
+    .time-picker p {
+        color: #8960FF;
+        font-weight: bold;
+        margin-bottom: 3px;
+        margin-top: 15px;
+    }
     .modal-footer {
         background-color: #8960FF;
         border-radius: 2rem;
@@ -138,21 +171,6 @@
             color: #8960FF;
         }
 
-    #newMentorScheduleModal::before {
-        content: '';
-        display: block;
-        width: 60px;
-        height: 60px;
-        margin-left: auto;
-        background: #FF6060;
-        border-radius: 50%;
-        position: relative;
-        top: -20px;
-        left: 10px;
-    }
-</style>
-
-<style>
 
     .dot h4 {
         margin-top: -13px;

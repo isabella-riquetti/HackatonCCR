@@ -16,17 +16,17 @@ namespace HackathonCCR.MVC.Services
             var emailPassword = ConfigurationManager.AppSetting["Email:Password"];
 
             var mail = new MailMessage();
-            mail.From = new MailAddress(fromEmail, "Degrau certo");
+            mail.From = new MailAddress(fromEmail, "D.Grau");
             var mentorEmail = new MailAddress(mentor.Email, mentor.Name);
             var discoverEmail = new MailAddress(discover.Email, discover.Name);
             mail.To.Add(mentorEmail);
             mail.To.Add(discoverEmail);
-            mail.Subject = $"Degrau Certo: Mentoria agendada";
+            mail.Subject = $"D.Grau: Mentoria agendada";
             mail.Body = $"Uma mentoria entre o mentor {mentor.Name} e o mentorada {discover.Name} foi agendada. Favor informar a inteção de comparecimento e utilizar o google meet para se reunirem.";
 
             StringBuilder str = new StringBuilder();
             str.AppendLine("BEGIN:VCALENDAR");
-            str.AppendLine("PRODID:-//Degrau Certo");
+            str.AppendLine("PRODID:-//D.Grau");
             str.AppendLine("VERSION:2.0");
             str.AppendLine("METHOD:REQUEST");
             str.AppendLine("BEGIN:VEVENT");
@@ -72,19 +72,19 @@ namespace HackathonCCR.MVC.Services
             var emailPassword = ConfigurationManager.AppSetting["Email:Password"];
 
             var mail = new MailMessage();
-            mail.From = new MailAddress(fromEmail, "Degrau certo");
+            mail.From = new MailAddress(fromEmail, "D.Grau");
 
             var mentorEmail = new MailAddress(mentor.Email, mentor.Name);
             var discoverEmail = new MailAddress(discover.Email, discover.Name);
             mail.To.Add(mentorEmail);
             mail.To.Add(discoverEmail);
 
-            mail.Subject = $"Degrau Certo: Mentoria cancelada";
+            mail.Subject = $"D.Grau: Mentoria cancelada";
             mail.Body = $"Um dos participantes precisou cancelar a mentoria entre o mentor {mentor.Name} e o mentorada {discover.Name}.";
 
             StringBuilder str = new StringBuilder();
             str.AppendLine("BEGIN:VCALENDAR");
-            str.AppendLine("PRODID:-//Degrau Certo");
+            str.AppendLine("PRODID:-//D.Grau");
             str.AppendLine("VERSION:2.0");
             str.AppendLine("METHOD:CANCEL");
             str.AppendLine(string.Format("UID:{0}", inviteId));

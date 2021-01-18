@@ -53,8 +53,8 @@
 
 .plus {
     position: absolute;
-    right: 26px;
-    top: -47px;
+    right: 55px;
+    top: -19px;
     cursor: pointer;
 }
 
@@ -149,6 +149,15 @@
         border: 30px solid #8960ff;
     }*/
 
+
+.porcentagem {
+    font-size: 48px;
+    color: #767676;
+    position: absolute;
+    right: 135px;
+    bottom: 156px;
+}
+
 .dados-horas {
     margin-top: 60px;
 }
@@ -162,7 +171,27 @@
         left: 80px;
         top: -25px;
     }
+.header-horas h2::after {
+    content: "";
+    font-size: 50px;
+    text-align: center;
+    display: block;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: absolute;
+    right: -200px;
+    top: 60px;
+    border: 30px solid #8960ff;
+}
 
+.horas-complementares {
+    background: #f0f0f0;
+    max-width: 727px;
+    padding: 60px 60px 120px 60px;
+    border-radius: 40px;
+    position: relative;
+}
 .roxo {
     color: #8960ff;
 }

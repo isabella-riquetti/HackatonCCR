@@ -26,23 +26,6 @@
             $(this).css('border-color', color);
         })
     });
-
-    $(document).on('shown.bs.modal', '.modal', function () {
-        var scheduleId = $("#ScheduleId").val();
-        $.ajax({
-            url: '@Url.Action("Get", "Schedule")',
-            type: 'GET',
-            cache: false,
-            data: { scheduleId }
-        }).done(function (data) {
-            $("#mentor").text(data.PartnerName);
-            $("#course").text(data.Course);
-            $("#date").text(data.ScheduleDate);
-            $("#time").text(data.ScheduleTime);
-        }).fail(function (e) {
-            console.log(e);
-        });
-    });
 </script>
 
 <style>
